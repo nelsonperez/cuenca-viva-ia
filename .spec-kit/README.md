@@ -34,6 +34,7 @@ spec (qué) → plan (cómo) → verificación constitucional → pruebas en roj
 |---|---|---|
 | Constitución | [constitution.md](constitution.md) | v1.0.0 |
 | Plan 000 | [plans/000-migracion-react-angular.md](plans/000-migracion-react-angular.md) | En curso (fase 0 terminada) |
+| Plan 001 | [plans/001-bienvenida-y-mision.md](plans/001-bienvenida-y-mision.md) | Propuesto (después del plan 000) |
 | Línea de base | [baseline/README.md](baseline/README.md) | Versión React, 2026-10-14 |
 | ADR 001 | [adr/001-angular-21-node-20.md](adr/001-angular-21-node-20.md) | Aceptado |
 | ADR 002 | [adr/002-build-angular-cli.md](adr/002-build-angular-cli.md) | Aceptado |

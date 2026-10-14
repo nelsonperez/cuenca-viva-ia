@@ -11,6 +11,7 @@ Este proyecto se trabaja con Spec-Driven Development. Antes de proponer o escrib
 ## Estado actual
 
 - **Plan en curso:** [000 — Migración de React a Angular](.spec-kit/plans/000-migracion-react-angular.md). Mientras no termine, el código de la UI sigue en React (`src/ui/`) y el toolchain es Vite + Vitest. Lo que pide la constitución (Angular, Jest, Tailwind) se va adoptando fase por fase.
+- **Plan siguiente:** [001 — Bienvenida, misión y primer año guiado](.spec-kit/plans/001-bienvenida-y-mision.md). Empieza cuando terminen las fases 4 y 5 del plan 000. No lo implementes en React.
 - **Entorno:** Node 20.20 → Angular 21.x y TypeScript ~5.9 (ADR 001).
 
 ## Mapa rápido

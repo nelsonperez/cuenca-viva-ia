@@ -34,6 +34,12 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 8. **WHEN** la pantalla es angosta **THEN** las columnas se apilan y todo sigue siendo usable.
 9. **WHEN** se usa solo el teclado **THEN** se puede jugar una partida completa.
 
+### Enmienda pendiente (plan 001)
+
+Aprobada el 2026-10-14; se aplica cuando se implemente [bienvenida-y-mision.md](bienvenida-y-mision.md):
+
+1. **WHEN** el estudiante aprieta "Nueva partida" en la bienvenida **THEN** se ve el año actual, su tipo, el agua que trae el río, el nivel del acuífero, los créditos, la misión y un cartel de que los datos son simulados.
+
 ## Diseño
 
 - El estado del juego vive en un reducer (`src/game/`): estado de la cuenca, historial de años,
