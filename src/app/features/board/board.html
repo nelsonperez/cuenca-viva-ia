@@ -1,0 +1,27 @@
+<main class="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 pt-4 pb-2 min-[901px]:px-8">
+  <div class="grid grid-cols-1 gap-[18px] min-[901px]:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+    <section class="flex min-w-0 flex-col gap-4">
+      <app-basin-map />
+      <app-aquifer />
+    </section>
+    <section class="flex min-w-0 flex-col gap-4">
+      <app-allocation />
+      <app-technologies />
+    </section>
+  </div>
+
+  <footer class="grid grid-cols-1 items-stretch gap-[18px] min-[901px]:grid-cols-[minmax(0,1fr)_auto]">
+    <app-tutor-panel />
+    <div class="flex flex-col items-stretch gap-2">
+      <button
+        type="button"
+        class="play-button min-h-20 w-full min-[901px]:w-auto min-[901px]:min-w-[300px]"
+        (click)="simulate()"
+      >
+        <app-icon name="play" [size]="26" />
+        <span>{{ store.isLastYear() ? 'Cerrar partida' : 'Simular año' }}</span>
+      </button>
+      <span class="text-center text-[13px] text-muted">{{ hint() }}</span>
+    </div>
+  </footer>
+</main>

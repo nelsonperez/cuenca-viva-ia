@@ -1,0 +1,69 @@
+@if (view(); as v) {
+  <div class="card">
+    <div class="card-head">
+      <div class="flex flex-col">
+        <h2>Reparto del agua</h2>
+        <span class="text-sm text-muted">Cuánto de su necesidad recibe cada sector este año</span>
+      </div>
+      <span class="rounded-full px-3 py-1.5 text-sm font-semibold" [class]="v.pill">
+        Pedido: {{ v.requested | fmt }} UE · Río: {{ v.p.inflow | fmt }} UE
+      </span>
+    </div>
+
+    @for (sector of sectors; track sector) {
+      @let value = store.game().draft.coverage[sector];
+      <div
+        class="grid grid-cols-[minmax(0,1fr)_56px] items-center gap-4 sm:grid-cols-[210px_minmax(0,1fr)_64px]"
+        [class]="ui[sector].tone"
+      >
+        <label [for]="'coverage-' + sector" class="flex cursor-pointer items-center gap-2.5">
+          <span class="flex size-[38px] flex-none items-center justify-center rounded-[10px] bg-(--soft) text-(--tone)">
+            <app-icon [name]="ui[sector].icon" />
+          </span>
+          <span class="flex flex-col">
+            <strong>{{ ui[sector].title }}</strong>
+            <span class="text-[13px] text-muted">Necesita {{ v.p.demand[sector] | fmt }} UE</span>
+          </span>
+        </label>
+        <input
+          [id]="'coverage-' + sector"
+          class="rng focus-ring col-span-2 row-start-2 sm:col-span-1 sm:row-start-auto"
+          type="range"
+          min="0"
+          max="100"
+          step="5"
+          [value]="value"
+          [style.--fill]="value + '%'"
+          (input)="setCoverage(sector, $event)"
+        />
+        <span class="text-right font-display text-2xl font-bold text-(--tone)">{{ value }}%</span>
+      </div>
+    }
+
+    <div class="flex flex-col gap-2 border-t border-[#e3eaee] pt-3">
+      <div class="flex flex-wrap items-baseline justify-between gap-3 font-semibold">
+        <span>Estrés hídrico de la cuenca</span>
+        <strong class="font-display text-xl" [class]="v.bandText">
+          {{ v.p.stress | fmt: 2 }} · {{ v.band }}
+        </strong>
+      </div>
+      <div class="relative h-3 overflow-hidden rounded-md bg-[#e8eef1]">
+        <div
+          class="absolute inset-y-0 left-0 rounded-md transition-[width] duration-300"
+          [class]="v.bandFill"
+          [style.width.%]="v.meter"
+        ></div>
+        <div class="absolute inset-y-0 left-1/2 border-l-2 border-white"></div>
+      </div>
+      <div class="flex flex-wrap justify-between gap-x-4 gap-y-1 text-[13px] text-muted">
+        <span>
+          Se usan {{ v.used | fmt }} UE; el río trae {{ v.p.inflow | fmt }}
+          @if (v.p.pumping > 0) {
+            ({{ v.p.pumping | fmt }} salen del acuífero)
+          }
+        </span>
+        <span>1,0 = se usa todo lo que trae el río</span>
+      </div>
+    </div>
+  </div>
+}

@@ -30,6 +30,16 @@
   --color-bad-soft: #fdecea;
   --color-good-ink: #1e4d31;
 
+  /* Stress bands: text and fill colors. */
+  --color-band-low: #2f7d4f;
+  --color-band-moderate: #8a5100;
+  --color-band-high: #a34a00;
+  --color-band-critical: #b42318;
+  --color-band-low-fill: #3a9a62;
+  --color-band-moderate-fill: #e8a82e;
+  --color-band-high-fill: #db7428;
+  --color-band-critical-fill: #c2412f;
+
   --font-sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Barlow Semi Condensed', 'Barlow', system-ui, sans-serif;
 }
@@ -64,5 +74,74 @@
 
   h3 {
     font-size: 18px;
+  }
+}
+
+@layer base {
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+}
+
+/* Shared building blocks of the board (ADR 004). */
+
+@utility card {
+  @apply flex flex-col gap-3.5 rounded-[18px] border border-line bg-card p-[18px];
+}
+
+@utility card-head {
+  @apply flex flex-wrap items-center justify-between gap-3;
+}
+
+@utility bar-track {
+  @apply h-1.5 overflow-hidden rounded-[3px] bg-[#e1e8ec];
+}
+
+@utility bar-fill {
+  @apply h-full rounded-[3px] transition-[width] duration-300;
+}
+
+@utility focus-ring {
+  @apply focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-amber;
+}
+
+/* Sector tone: components use text-(--tone), bg-(--soft)… */
+@utility tone-agr {
+  --tone: var(--color-agr);
+  --soft: var(--color-agr-soft);
+}
+
+@utility tone-mun {
+  --tone: var(--color-mun);
+  --soft: var(--color-mun-soft);
+}
+
+@utility tone-min {
+  --tone: var(--color-min);
+  --soft: var(--color-min-soft);
+}
+
+/* The big "Simular año" / "Jugar de nuevo" button. */
+@utility play-button {
+  @apply flex cursor-pointer items-center justify-center gap-3.5 rounded-[18px] border-none bg-water px-10 font-display text-[30px] font-bold text-white focus-ring;
+  box-shadow:
+    0 8px 0 #08405f,
+    0 14px 28px rgba(8, 64, 95, 0.28);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background 0.15s ease;
+
+  &:hover {
+    background: #0a6ba3;
+  }
+
+  &:active {
+    transform: translateY(6px);
+    box-shadow:
+      0 2px 0 #08405f,
+      0 6px 12px rgba(8, 64, 95, 0.25);
   }
 }

@@ -1,0 +1,82 @@
+@if (games(); as g) {
+  <main class="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 pt-4 pb-2 min-[901px]:px-8">
+    <div class="card">
+      <h2>Partida terminada</h2>
+      <p class="m-0 max-w-[70ch] text-lg">
+        El acuífero empezó en {{ store.params.groundInitial | fmt }} UE y terminó en
+        <strong [class]="g.current.summary.groundChange >= 0 ? 'text-agr' : 'text-bad'">
+          {{ g.current.summary.finalGround | fmt }} UE</strong
+        >.
+        @if (g.previous) {
+          Compará esta partida con la anterior: ¿qué decisión cambió el resultado?
+        } @else {
+          Jugá de nuevo con otras decisiones para comparar las dos estrategias.
+        }
+      </p>
+
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Indicador</th>
+              @if (g.previous) {
+                <th scope="col">Partida anterior</th>
+              }
+              <th scope="col">{{ g.previous ? 'Esta partida' : 'Resultado' }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows; track row.label) {
+              <tr>
+                <th scope="row">{{ row.label }}</th>
+                @if (g.previous; as previous) {
+                  <td>{{ row.value(previous.summary) }}</td>
+                }
+                <td>{{ row.value(g.current.summary) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Año por año</h3>
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Año</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Río</th>
+              <th scope="col">Bombeo</th>
+              <th scope="col">Recarga</th>
+              <th scope="col">Acuífero</th>
+              <th scope="col">Estrés</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (year of g.current.history; track year.year) {
+              <tr>
+                <th scope="row">{{ year.year + 1 }}</th>
+                <td>{{ yearName(year.yearType) }}</td>
+                <td>{{ year.inflow | fmt }}</td>
+                <td>{{ year.pumping | fmt }}</td>
+                <td>{{ year.riverRecharge + year.irrigationReturn | fmt }}</td>
+                <td>{{ year.groundAfter | fmt }}</td>
+                <td [class]="bandText[year.stressBand]">
+                  {{ year.stress | fmt: 2 }} · {{ bandName[year.stressBand] }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <button type="button" class="play-button mt-2 mb-3 min-h-16 self-start text-2xl" (click)="restart()">
+        Jugar de nuevo
+      </button>
+      <p class="text-[13px] text-muted">
+        Las dos partidas empiezan con el mismo acuífero y atraviesan los mismos años.
+      </p>
+    </div>
+  </main>
+}

@@ -1,0 +1,51 @@
+<div class="card">
+  <div class="card-head">
+    <div class="flex flex-col">
+      <h2>Tecnologías de ahorro</h2>
+      <span class="text-sm text-muted">Lo que comprás queda instalado para el resto de la partida</span>
+    </div>
+    <span class="rounded-xl bg-water-dark px-4 py-2 font-display text-xl font-bold text-white">
+      Créditos: {{ store.creditsLeft() }}
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    @for (option of store.technologies(); track option.technology) {
+      <button
+        type="button"
+        class="focus-ring flex min-h-[132px] cursor-pointer flex-col gap-1.5 rounded-[14px] border-2 px-3.5 py-3 text-left transition-[border-color,box-shadow,background] duration-150"
+        [class]="cardClass[option.status]"
+        [attr.aria-pressed]="option.status === 'owned' || option.status === 'selected'"
+        [disabled]="option.status === 'owned' || option.status === 'locked'"
+        (click)="toggle(option.technology)"
+      >
+        <span class="flex w-full items-center justify-between text-water">
+          <app-icon [name]="ui[option.technology].icon" [size]="28" />
+          <span class="font-display text-lg font-bold text-ink">{{ option.spec.cost }} créditos</span>
+        </span>
+        <strong class="text-[17px]">{{ ui[option.technology].title }}</strong>
+        <span class="text-[13px] text-muted">
+          −{{ option.spec.saving * 100 | fmt: 0 }} % {{ ui[option.technology].effect }}
+        </span>
+        <span class="mt-auto self-start rounded-full px-2.5 py-1 text-[13px] font-semibold" [class]="chipClass[option.status]">
+          {{ statusText[option.status] }}
+        </span>
+      </button>
+    }
+  </div>
+
+  <div
+    class="flex items-center gap-3 rounded-xl px-3.5 py-3 text-[15px]"
+    [class]="effect() ? 'bg-agr-soft text-good-ink' : 'bg-ground text-muted'"
+  >
+    <app-icon name="trendDown" [size]="20" />
+    <span>
+      @if (effect(); as p) {
+        Con las tecnologías el estrés baja de <strong>{{ p.stressWithoutTechnology | fmt: 2 }}</strong> a
+        <strong>{{ p.stress | fmt: 2 }}</strong>.
+      } @else {
+        Todavía no hay tecnologías que bajen el estrés este año.
+      }
+    </span>
+  </div>
+</div>
