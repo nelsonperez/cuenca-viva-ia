@@ -42,8 +42,7 @@ Aprobada el 2026-10-14; se aplica cuando se implemente [bienvenida-y-mision.md](
 
 ## Diseño
 
-- El estado del juego vive en un reducer (`src/game/`): estado de la cuenca, historial de años,
-  decisión en borrador y partidas terminadas.
+- El estado del juego vive en `GameStore` (`src/app/core/`), un servicio con Signals que guarda la partida y le aplica el reducer puro de `src/game/` (estado de la cuenca, historial de años, decisión en borrador y partidas terminadas). El tutor se expone con `TutorService`.
 - La vista previa es una llamada a `step` con la decisión en borrador, sin guardar el resultado.
   No hay una segunda implementación de las cuentas en la pantalla.
 - Los controles de reparto van de 0 a 100 % de la necesidad de cada sector, así siguen teniendo

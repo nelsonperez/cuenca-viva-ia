@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: En curso (fases 0 a 3 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: En curso (fases 0 a 4 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -87,18 +87,19 @@ Durante la transición, `npm test` corre `vitest run` (solo `*.test.ts`, con `te
 
 Para cada servicio: primero las pruebas en rojo, después la implementación.
 
-- [ ] 4.1 `GameStore` (`src/app/core/game.store.ts`):
+- [x] 4.1 `GameStore` (`src/app/core/game.store.ts`):
   - `private readonly state = signal<Game>(newGame(params))`
   - `readonly game = state.asReadonly()`
   - `readonly preview = computed(() => preview(state(), params, scenario))`
-  - `readonly creditsLeft`, `readonly isLastYear`, `readonly currentYear` como `computed`
+  - `readonly creditsLeft`, `readonly isLastYear`, `readonly currentYear`, `nextYearType`, `lastYear` como `computed`
+  - `facts` (reutiliza `facts()` del tutor para el total pedido y la recarga total) y `technologies` (estado de cada tecnología: disponible, seleccionada, bloqueada o instalada), así los componentes no hacen cuentas (Art. 4.3)
   - `dispatch(action: Action)` → `state.update(g => reduce(g, action, params, scenario))`
   - Pruebas: `[tablero#2]` cambiar la cobertura recalcula la vista previa; `[tablero#3]`/`[tablero#4]` comprar respeta los créditos; `[tablero#5]` simular avanza el año; `[tablero#6]`/`[tablero#7]` reiniciar conserva las dos últimas partidas.
-- [ ] 4.2 `TutorService` (`src/app/core/tutor.service.ts`): `advice = computed(() => advise(preview))` y `lastYear = computed(() => explainYear(...))`. Prueba: ningún texto expuesto contiene números sin respaldo (`ungroundedNumbers`).
-- [ ] 4.3 `DEFAULT_PARAMS` y `DEFAULT_SCENARIO` se proveen con `InjectionToken`, para poder usar escenarios de prueba.
-- [ ] 4.4 Actualizar `tablero.md`, sección **Diseño**: "El estado vive en `GameStore` (Signals), que delega en el reducer puro de `src/game/`". Los requerimientos no cambian.
+- [x] 4.2 `TutorService` (`src/app/core/tutor.service.ts`): `advice = computed(() => advise(preview))` y `lastYear = computed(() => explainYear(...))`. Prueba: ningún texto expuesto contiene números sin respaldo (`ungroundedNumbers`).
+- [x] 4.3 `DEFAULT_PARAMS` y `DEFAULT_SCENARIO` se proveen con `InjectionToken`, para poder usar escenarios de prueba.
+- [x] 4.4 Actualizar `tablero.md`, sección **Diseño**: "El estado vive en `GameStore` (Signals), que delega en el reducer puro de `src/game/`". Los requerimientos no cambian.
 
-**Criterio de salida:** cobertura de `src/app/core` ≥ 90 % y ninguna cuenta del motor reimplementada.
+**Criterio de salida:** cobertura de `src/app/core` ≥ 90 % y ninguna cuenta del motor reimplementada. **Cumplido:** 13 pruebas nuevas (70 en total), 100 % de líneas y ramas en `core`, y umbral del 90 % agregado a `jest.config.js`.
 
 ### Fase 5 — Tablero en Angular (TDD, un componente por vez)
 
