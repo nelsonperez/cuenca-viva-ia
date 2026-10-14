@@ -3,7 +3,7 @@
     <div class="card-head">
       <div class="flex flex-col">
         <h2>Reparto del agua</h2>
-        <span class="text-sm text-muted">Cuánto de su necesidad recibe cada sector este año</span>
+        <span class="text-sm text-muted">¿Qué parte de lo que necesita le das a cada sector? 100 % es todo lo que necesita.</span>
       </div>
       <span class="rounded-full px-3 py-1.5 text-sm font-semibold" [class]="v.pill">
         Pedido: {{ v.requested | fmt }} UE · Río: {{ v.p.inflow | fmt }} UE
@@ -22,7 +22,9 @@
           </span>
           <span class="flex flex-col">
             <strong>{{ ui[sector].title }}</strong>
-            <span class="text-[13px] text-muted">Necesita {{ v.p.demand[sector] | fmt }} UE</span>
+            <span class="text-[13px] text-muted">
+              Recibe <strong class="text-ink">{{ v.p.delivered[sector] | fmt }}</strong> de {{ v.p.demand[sector] | fmt }} UE
+            </span>
           </span>
         </label>
         <input
