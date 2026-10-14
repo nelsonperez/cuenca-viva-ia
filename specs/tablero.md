@@ -34,6 +34,10 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 7. **WHEN** hay dos partidas terminadas **THEN** se muestran sus indicadores lado a lado.
 8. **WHEN** la pantalla es angosta **THEN** las columnas se apilan y todo sigue siendo usable.
 9. **WHEN** se usa solo el teclado **THEN** se puede jugar una partida completa.
+10. **WHEN** se ve un control de reparto **THEN** queda claro qué significa su porcentaje: la
+    tarjeta explica que 100 % es todo lo que el sector necesita, y cada sector muestra cuántas UE
+    recibiría y cuántas necesita ("Recibe 30 de 60 UE"). Lo que recibiría sale de la vista previa,
+    así que también refleja el recorte cuando el río y el bombeo no alcanzan.
 
 ## Diseño
 
@@ -61,3 +65,4 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 | 6–7 | Resumen y comparación | Cumplido (prueba) y verificado en el navegador: mismas cifras que la línea de base (20,5 y 68,2 UE) |
 | 8 | Pantalla angosta | Verificado en el navegador a 375 px, sin scroll horizontal |
 | 9 | Teclado | Verificado en el navegador: partida completa solo con teclado (Tab, flechas, Espacio, Enter) |
+| 10 | Porcentaje del reparto explicado en UE | Cumplido (prueba) y verificado en el navegador a 1280 y 375 px |

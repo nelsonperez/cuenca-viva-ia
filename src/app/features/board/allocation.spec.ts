@@ -35,4 +35,30 @@ describe('Allocation', () => {
     expect(text()).toContain('Se usan 100 UE; el río trae 60 (40 salen del acuífero)')
     expect(text()).toContain('Crítico')
   })
+
+  it('[tablero#10] explains that 100 % is everything a sector needs, in UE', async () => {
+    const { element, text } = await render(Allocation)
+    expect(text()).toContain('100 % es todo lo que necesita')
+    const rows = Array.from(element.querySelectorAll('label')).map((l) => l.textContent!.replace(/\s+/g, ' ').trim())
+    expect(rows).toEqual([
+      'Agricultura Recibe 60 de 60 UE',
+      'Ciudad Recibe 25 de 25 UE',
+      'Minería Recibe 15 de 15 UE',
+    ])
+  })
+
+  it('[tablero#10] lowering a slider lowers what the sector receives', async () => {
+    const { element, store, settle } = await render(Allocation)
+    store.dispatch({ type: 'setCoverage', sector: 'agr', value: 50 })
+    await settle()
+    expect(element.querySelector('label[for="coverage-agr"]')!.textContent).toContain('Recibe 30 de 60 UE')
+  })
+
+  it('[tablero#10] shows the cut when the river and the pumps are not enough', async () => {
+    const { element, simulate } = await render(Allocation)
+    await simulate(2)
+    // Extreme drought: 45 UE of river plus 50 of pumping for 100 requested.
+    expect((element.querySelector('#coverage-agr') as HTMLInputElement).value).toBe('100')
+    expect(element.querySelector('label[for="coverage-agr"]')!.textContent).toContain('Recibe 57 de 60 UE')
+  })
 })
