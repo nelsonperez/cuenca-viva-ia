@@ -1,6 +1,6 @@
 # Plan 001 — Bienvenida, misión y primer año guiado
 
-**Estado**: En curso (fase 1 terminada) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
+**Estado**: En curso (fases 1 y 2 terminadas) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
 
 ## Objetivo
 
@@ -51,12 +51,17 @@ Al empezar este plan ya existen, por el plan 000:
 
 ### Fase 2 — Estado de pantallas y guía en `GameStore` (TDD)
 
-- [ ] 2.1 `screen = signal<'welcome' | 'howTo' | 'playing'>('welcome')`, con las intenciones `start()`, `showHowTo()` y `backToStart()`.
-- [ ] 2.2 `guideStep = signal<number | null>`: arranca en el paso 0 con el primer `start()`; avanza con `next()`, con `setCoverage` en el paso 2 y con `simulate` en el paso 5; se cierra con `skipGuide()`; no se activa después de `restart`.
-- [ ] 2.3 `medals = computed(...)` sobre la última partida terminada, y `missionStatus = computed(...)` sobre la vista previa para la franja del tablero (bienvenida#14).
-- [ ] 2.4 Pruebas del recorrido completo: bienvenida → partida guiada → resumen → jugar de nuevo (sin guía) → volver al inicio (las partidas se conservan).
+- [x] 2.1 `screen = signal<'welcome' | 'howTo' | 'playing'>('welcome')`, con las intenciones `start()`, `showHowTo()` y `backToStart()`.
+- [x] 2.2 `guideStep = signal<number | null>`: arranca en el paso 0 con el primer `start()`; avanza con `next()`, con `setCoverage` en el paso 2 y con `simulate` en el paso 5; se cierra con `skipGuide()`; no se activa después de `restart`.
+- [x] 2.3 `medals = computed(...)` sobre la última partida terminada, y `missionStatus = computed(...)` sobre la vista previa para la franja del tablero (bienvenida#14).
+- [x] 2.4 Pruebas del recorrido completo: bienvenida → partida guiada → resumen → jugar de nuevo (sin guía) → volver al inicio (las partidas se conservan).
 
-**Criterio de salida:** bienvenida#2, #6, #7, #9 y #15 cubiertos en el store, con cobertura ≥ 90 %.
+**Criterio de salida:** bienvenida#2, #6, #7, #9 y #15 cubiertos en el store, con cobertura ≥ 90 %. **Cumplido:**
+- Los pasos de la guía (zona y acción que los hace avanzar) viven en `core/guide.ts`; los textos de Hidro quedan para la UI.
+- Simular antes del último paso cierra la guía, porque el jugador ya está jugando por su cuenta.
+- "Nueva partida" con una partida terminada la reinicia y conserva las anteriores.
+- `mission` usa `medalsSoFar` sobre la vista previa.
+- 10 pruebas nuevas en `game.store.flow.spec.ts`.
 
 ### Fase 3 — Pantallas (TDD, un componente por vez)
 
