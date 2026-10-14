@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: En curso (fase 0 terminada) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: En curso (fases 0 y 1 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -30,7 +30,7 @@ Reemplazar la capa de UI en React por Angular (Standalone + Signals + Tailwind) 
 | 3 | La fase 3 elimina React, JSX/TSX y el plugin `react` de oxlint | Cumple |
 | 4 | El dominio queda intacto y sin imports de Angular; servicios y componentes encima (ADR 005) | Cumple |
 | 5 | Componentes standalone, OnPush, zoneless, `input()`/`output()`, `@if`/`@for`, pipe `fmt` | Cumple |
-| 6.3 / 6.4 | Umbrales de cobertura en `jest.config.ts`; las pruebas de 200 partidas aleatorias se conservan | Cumple |
+| 6.3 / 6.4 | Umbrales de cobertura en `jest.config.js`; las pruebas de 200 partidas aleatorias se conservan | Cumple |
 | 7.2 | Este cuadro | Cumple |
 
 ## Fases
@@ -46,13 +46,15 @@ Reemplazar la capa de UI en React por Angular (Standalone + Signals + Tailwind) 
 
 ### Fase 1 — Motor de simulación: cambio de runner
 
-- [ ] 1.1 Instalar Jest, `jest-preset-angular` y `@types/jest`, con `jest.config.ts` y umbrales de cobertura (Art. 6.3).
-- [ ] 1.2 Renombrar `engine.test.ts` → `engine.spec.ts` y reemplazar los imports de `vitest` por `@jest/globals`. **No se cambia ninguna aserción.**
-- [ ] 1.3 Verificar que pasa la misma cantidad de pruebas que en la línea de base, incluidas las de balance y límites con 200 partidas aleatorias.
-- [ ] 1.4 Agregar una regla de lint o una prueba de arquitectura que falle si `src/engine/` importa `@angular`, `rxjs` o el DOM (Art. 4.1).
-- [ ] 1.5 Actualizar `motor-simulacion.md`: la línea "Pruebas" pasa a `engine.spec.ts`. Los requerimientos no cambian.
+- [x] 1.1 Instalar Jest 30, con `jest.config.js` y umbrales de cobertura (Art. 6.3). **Cambio respecto de lo previsto:** `jest-preset-angular` exige tener Angular instalado, así que hasta la fase 3 se usa `ts-jest`, que es la base de ese preset. Se usa `@jest/globals` con imports explícitos en lugar de `@types/jest`.
+- [x] 1.2 Renombrar `engine.test.ts` → `engine.spec.ts` y reemplazar los imports de `vitest` por `@jest/globals`. **No se cambió ninguna aserción.**
+- [x] 1.3 Verificar que pasa la misma cantidad de pruebas que en la línea de base: pasan 19 de 19, incluidas las de balance y límites con 200 partidas aleatorias. La cobertura de ramas daba 86 % (< 90 %, Art. 6.3), así que se agregaron 4 pruebas de casos límite: río seco con y sin pedido, sector con necesidad 0 y `summarize([])`. Total: 23 pruebas, 100 % de líneas y de ramas.
+- [x] 1.4 Agregar una prueba de arquitectura, `src/domain-boundaries.spec.ts`, que falla si el dominio importa `@angular`, `rxjs`, `react` o usa globales del DOM (Art. 4.1). Se escribió con TDD: primero se vieron fallar las pruebas del detector.
+- [x] 1.5 Actualizar `motor-simulacion.md`: la línea "Pruebas" pasa a `engine.spec.ts`. Los requerimientos no cambian.
 
-**Criterio de salida:** criterios 1 a 12 del motor siguen "Cumplido (prueba)" y la cobertura del motor es ≥ 95 %.
+Durante la transición, `npm test` corre `vitest run` (solo `*.test.ts`, con `test.include` en `vite.config.ts`) y después `jest --coverage`. `tsconfig.spec.json` revisa los tipos de los `*.spec.ts`.
+
+**Criterio de salida:** criterios 1 a 12 del motor siguen "Cumplido (prueba)" y la cobertura del motor es ≥ 95 %. **Cumplido:** 23 pruebas en verde y 100 % de líneas y ramas en `src/engine/`.
 
 ### Fase 2 — Tutor por reglas y estado de partida: cambio de runner
 
@@ -66,7 +68,7 @@ Reemplazar la capa de UI en React por Angular (Standalone + Signals + Tailwind) 
 ### Fase 3 — Toolchain Angular (la UI queda vacía temporalmente)
 
 - [ ] 3.1 Quitar `react`, `react-dom`, `@types/react*`, `@vitejs/plugin-react`, `vite.config.ts`, `src/main.tsx`, `src/App.tsx`, `src/ui/` y el plugin `react` de `.oxlintrc.json`. El código React queda en la etiqueta `react-final` como referencia.
-- [ ] 3.2 Instalar Angular 21.x (`core`, `common`, `compiler`, `platform-browser`), `@angular/build`, `@angular/cli` y `@angular/compiler-cli`, y bajar TypeScript a `~5.9`.
+- [ ] 3.2 Instalar Angular 21.x (`core`, `common`, `compiler`, `platform-browser`), `@angular/build`, `@angular/cli` y `@angular/compiler-cli`, y bajar TypeScript a `~5.9`. Instalar `jest-preset-angular` y `jsdom`, y pasar `jest.config.js` a ese preset.
 - [ ] 3.3 Crear `angular.json`, `tsconfig.json`, `tsconfig.app.json` y `tsconfig.spec.json` según la configuración que genera `ng new` (strict, `strictTemplates`), con presupuesto de bundle (Art. 6.7).
 - [ ] 3.4 Crear `src/main.ts` y `src/app/app.config.ts` con `provideZonelessChangeDetection()` y `provideBrowserGlobalErrorListeners()`, sin router (una sola pantalla).
 - [ ] 3.5 Mover `index.html` a `src/index.html`, conservando `lang="es"`, la meta descripción y Google Fonts (Barlow).

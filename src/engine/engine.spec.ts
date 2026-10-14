@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from '@jest/globals'
 import {
   balanceError,
   demandWith,
@@ -241,5 +241,33 @@ describe('stress bands', () => {
     expect(stressBand(0.8)).toBe('moderate')
     expect(stressBand(1)).toBe('high')
     expect(stressBand(1.2)).toBe('critical')
+  })
+})
+
+describe('edge cases', () => {
+  const nothing: Decision = { requested: { agr: 0, mun: 0, min: 0 }, buy: [] }
+
+  it('stress is infinite when the river is dry and water is still used', () => {
+    const { result } = step(initialState(P), full, P, year(0))
+    expect(result.pumping).toBeGreaterThan(0)
+    expect(result.stress).toBe(Infinity)
+    expect(result.stressBand).toBe('critical')
+  })
+
+  it('stress is zero when the river is dry and nothing is requested', () => {
+    const { result } = step(initialState(P), nothing, P, year(0))
+    expect(result.stress).toBe(0)
+    expect(result.stressWithoutTechnology).toBe(0)
+  })
+
+  it('a sector with no demand counts as fully covered', () => {
+    const params = { ...P, demand: { ...P.demand, min: 0 } }
+    const { result } = step(initialState(params), full, params, year(100))
+    expect(result.coverage.min).toBe(1)
+    expect(result.stressWithoutTechnology).toBeCloseTo(result.stress)
+  })
+
+  it('cannot summarize a game with no years', () => {
+    expect(() => summarize([])).toThrow()
   })
 })

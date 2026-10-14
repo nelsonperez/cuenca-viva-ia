@@ -8,7 +8,7 @@ Las pruebas del dominio (motor, tutor y estado de partida) están escritas en Vi
 
 ## Decisión
 
-Usar **Jest** con **`jest-preset-angular`**, invocado directamente (`npm test` → `jest`) y no mediante `ng test`. Los umbrales de cobertura del Art. 6.3 se declaran en `jest.config.ts`.
+Usar **Jest** con **`jest-preset-angular`**, invocado directamente (`npm test` → `jest`) y no mediante `ng test`. Los umbrales de cobertura del Art. 6.3 se declaran en `jest.config.js` (JavaScript para no sumar `ts-node`; el proyecto es `"type": "module"`).
 
 ## Consecuencias
 

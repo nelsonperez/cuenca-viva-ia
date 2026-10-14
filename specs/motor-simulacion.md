@@ -11,7 +11,7 @@ Calcular, año por año, qué pasa con el agua de la cuenca según lo que decide
 
 - Diseño del modelo: borrador v0.2 (reglas, parámetros provisionales y preguntas abiertas).
 - Todas las cantidades están en unidades educativas (UE). Nada está calibrado con datos reales.
-- Código: `src/engine/`. Pruebas: `src/engine/engine.test.ts`.
+- Código: `src/engine/`. Pruebas: `src/engine/engine.spec.ts` (Jest) y `src/domain-boundaries.spec.ts` (el motor no usa framework ni DOM).
 
 ## Requerimientos
 
