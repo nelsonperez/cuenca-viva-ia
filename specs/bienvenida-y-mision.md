@@ -1,6 +1,6 @@
 # Spec: Bienvenida, misión y primer año guiado
 
-**Estado**: Aprobada (en implementación) · **Plan**: [001](../.spec-kit/plans/001-bienvenida-y-mision.md)
+**Estado**: Implementada · **Plan**: [001](../.spec-kit/plans/001-bienvenida-y-mision.md)
 
 ## Objetivo
 
@@ -13,7 +13,7 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
 - Las medallas se calculan con el resumen de partida que ya produce el motor (`GameSummary`). Sus umbrales son parámetros educativos provisionales, igual que el resto del modelo.
 - Cambia el criterio 1 del tablero (ver la enmienda pendiente en `tablero.md`).
 - Se implementa en Angular después de la paridad del plan 000.
-- Código: `src/game/medals.ts`, `src/app/features/welcome/`, `src/app/features/guide/`. Pruebas: `*.spec.ts` junto a cada archivo.
+- Código: `src/game/medals.ts`, `src/app/core/guide.ts`, `src/app/features/welcome/`, `src/app/features/guide/`, `src/app/shared/medal*.ts`, `src/app/shared/hidro-bubble.ts`. Pruebas: `*.spec.ts` junto a cada archivo.
 
 ## Requerimientos
 
@@ -61,7 +61,8 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
   - "prudente" (acuífero final 98,4 UE y peor cobertura 85 %) gana al menos 2;
   - ganar las 3 requiere combinar reparto prudente con tecnología.
 - La pantalla visible se guarda en el estado de la aplicación (`welcome`, `howTo`, `playing`), no en el dominio. El resumen se sigue mostrando cuando el motor indica que la partida terminó.
-- Los pasos de la guía son datos: zona señalada, texto armado con la vista previa y condición de avance.
+- Los pasos de la guía son datos: zona señalada y acción que los hace avanzar (`core/guide.ts`), y el texto de Hidro armado con la vista previa (`features/guide/steps.ts`). Las zonas del tablero se marcan con `data-guide`; el paso "estrés y acuífero" ilumina las dos tarjetas.
+- Simular antes del último paso cierra la guía: el estudiante ya está jugando solo.
 - Valores calibrados (provisionales como el resto del modelo): `aquiferSafe = 0,9`, `noOneWithout = 0,8`, `calmBasin = 1,2`. Con ellos:
 
   | Estrategia | Acuífero final / inicial | Peor cobertura | Estrés medio | Medallas |
@@ -78,9 +79,9 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
 
 - [x] Calibrar los umbrales y fijar los valores en esta spec
 - [x] `medals()` con pruebas
-- [ ] Bienvenida y tarjetas de "Cómo se juega"
-- [ ] Guía del primer año
-- [ ] Medallas en el resumen y franja de misión en el tablero
+- [x] Bienvenida y tarjetas de "Cómo se juega"
+- [x] Guía del primer año
+- [x] Medallas en el resumen y franja de misión en el tablero
 - [ ] Prueba con estudiantes: ¿entienden qué hacer sin ayuda?
 - [ ] Revisión pedagógica de los textos de Hidro
 
@@ -88,13 +89,13 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
 
 | # | Criterio | Estado |
 |---|---|---|
-| 1–2 | Bienvenida y "Nueva partida" | Pendiente |
-| 3–4 | Tarjetas de "Cómo se juega", con teclado | Pendiente |
-| 5–9 | Guía del primer año: avance, salteo, teclado, no se repite | Pendiente |
-| 10 | Medallas en el resumen | Pendiente |
+| 1–2 | Bienvenida y "Nueva partida" | Cumplido (prueba) y verificado en el navegador |
+| 3–4 | Tarjetas de "Cómo se juega", con teclado | Cumplido (prueba) y verificado solo con teclado |
+| 5–9 | Guía del primer año: avance, salteo, teclado, no se repite | Cumplido (prueba) y verificado solo con teclado |
+| 10 | Medallas en el resumen | Cumplido (prueba) y verificado en el navegador |
 | 11–13 | Condición de cada medalla | Cumplido (prueba) |
-| 14 | Franja de misión en el tablero | Pendiente |
-| 15 | Volver al inicio conservando las partidas | Pendiente |
-| 16 | Ningún número sin respaldo | Pendiente |
+| 14 | Franja de misión en el tablero | Cumplido (prueba) |
+| 15 | Volver al inicio conservando las partidas | Cumplido (prueba) y verificado en el navegador |
+| 16 | Ningún número sin respaldo | Cumplido (prueba con `ungroundedNumbers`) |
 | — | Umbrales calibrados con las estrategias de referencia | Cumplido (prueba) |
 | — | Un estudiante juega sin explicación previa | Pendiente |

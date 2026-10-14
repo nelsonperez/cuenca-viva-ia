@@ -15,7 +15,7 @@
 
     <div class="flex flex-col items-center gap-4 text-center" data-card>
       <div class="flex gap-3 text-water" aria-hidden="true">
-        @for (icon of card().icons; track icon) {
+        @for (icon of card().icons; track $index) {
           <span class="flex size-16 items-center justify-center rounded-2xl bg-water-soft">
             <app-icon [name]="icon" [size]="34" />
           </span>

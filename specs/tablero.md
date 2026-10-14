@@ -18,8 +18,9 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 
 ## Requerimientos
 
-1. **WHEN** se abre la página **THEN** se ve el año actual, su tipo, el agua que trae el río, el
-   nivel del acuífero, los créditos y un cartel de que los datos son simulados.
+1. **WHEN** el estudiante aprieta "Nueva partida" en la bienvenida **THEN** se ve el año actual,
+   su tipo, el agua que trae el río, el nivel del acuífero, los créditos, la misión y un cartel de
+   que los datos son simulados. (Enmienda del 2026-10-14, plan 001; antes: "WHEN se abre la página".)
 2. **WHEN** el estudiante mueve un control de reparto **THEN** se actualizan en el momento el
    estrés hídrico, el bombeo, la recarga y la proyección del acuífero al cierre del año.
 3. **WHEN** el estudiante marca una tecnología que le alcanza **THEN** baja la necesidad del
@@ -33,12 +34,6 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 7. **WHEN** hay dos partidas terminadas **THEN** se muestran sus indicadores lado a lado.
 8. **WHEN** la pantalla es angosta **THEN** las columnas se apilan y todo sigue siendo usable.
 9. **WHEN** se usa solo el teclado **THEN** se puede jugar una partida completa.
-
-### Enmienda pendiente (plan 001)
-
-Aprobada el 2026-10-14; se aplica cuando se implemente [bienvenida-y-mision.md](bienvenida-y-mision.md):
-
-1. **WHEN** el estudiante aprieta "Nueva partida" en la bienvenida **THEN** se ve el año actual, su tipo, el agua que trae el río, el nivel del acuífero, los créditos, la misión y un cartel de que los datos son simulados.
 
 ## Diseño
 

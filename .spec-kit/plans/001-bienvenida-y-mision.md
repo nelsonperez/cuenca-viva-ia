@@ -1,6 +1,6 @@
 # Plan 001 — Bienvenida, misión y primer año guiado
 
-**Estado**: En curso (fases 1 y 2 terminadas) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
+**Estado**: Terminado (falta mergear el PR) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
 
 ## Objetivo
 
@@ -81,15 +81,20 @@ Reglas de esta fase:
 - La guía marca la zona señalada con una clase y un atributo `data-guide`, sin mover el tablero. El oscurecimiento es puramente visual: el tablero sigue respondiendo.
 - El panel "Tutor" del tablero pasa a llamarse "Hidro".
 
-**Criterio de salida:** bienvenida#1–16 con pruebas que los citan.
+**Criterio de salida:** bienvenida#1–16 con pruebas que los citan. **Cumplido:**
+- 143 pruebas en total.
+- Las tarjetas guardan el índice en un `signal` local, porque es estado de la vista y no de la aplicación.
+- La guía sincroniza el resaltado, el scroll y el foco con un `effect` (Art. 5.3: sincronizar con el exterior).
+- Se agregaron los íconos `shield`, `people` y `calm` para las medallas.
+- `tsconfig.json` incluye ahora `DOM.Iterable`.
 
 ### Fase 4 — Verificación y cierre
 
-- [ ] 4.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto.
-- [ ] 4.2 Playwright: abrir la página, recorrer "Cómo se juega" solo con el teclado, comenzar, seguir la guía y jugar las dos partidas de la línea de base. Anotar las medallas que gana cada una.
-- [ ] 4.3 Capturas a 1280 px y a 375 px de la bienvenida, una tarjeta, un paso de la guía y el resumen con medallas.
-- [ ] 4.4 Aplicar la enmienda de tablero#1 en `tablero.md` y actualizar las tablas de criterios de las dos specs.
-- [ ] 4.5 Actualizar el README y el índice de `.spec-kit/`.
+- [x] 4.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto.
+- [x] 4.2 Playwright: abrir la página, recorrer "Cómo se juega" solo con el teclado, comenzar, seguir la guía y jugar las dos partidas de la línea de base. Anotar las medallas que gana cada una. Ver [baseline/bienvenida](../baseline/bienvenida/README.md).
+- [x] 4.3 Capturas a 1280 px y a 375 px de la bienvenida, una tarjeta, un paso de la guía y el resumen con medallas.
+- [x] 4.4 Aplicar la enmienda de tablero#1 en `tablero.md` y actualizar las tablas de criterios de las dos specs.
+- [x] 4.5 Actualizar el README y el índice de `.spec-kit/`.
 
 ## Riesgos y mitigaciones
 

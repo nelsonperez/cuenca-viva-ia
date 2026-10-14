@@ -46,9 +46,10 @@ export class GuideOverlay {
       const gotIt = this.gotIt()?.nativeElement
       for (const old of this.document.querySelectorAll(`.${TARGET}`)) old.classList.remove(TARGET)
       if (!step) return
-      const target = this.document.querySelector<HTMLElement>(`[data-guide="${step.zone}"]`)
+      const targets = Array.from(this.document.querySelectorAll<HTMLElement>(`[data-guide="${step.zone}"]`))
+      const target = targets[0]
       if (!target) return
-      target.classList.add(TARGET)
+      for (const zone of targets) zone.classList.add(TARGET)
       const reduce = this.document.defaultView?.matchMedia?.('(prefers-reduced-motion: reduce)').matches
       target.scrollIntoView?.({ block: 'center', behavior: reduce ? 'auto' : 'smooth' })
       const control = step.waiting

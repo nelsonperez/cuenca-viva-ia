@@ -17,7 +17,7 @@ describe('Board', () => {
   it('[bienvenida#5] marks the zones the guide points at', async () => {
     const { element } = await render(Board)
     const zones = Array.from(element.querySelectorAll('[data-guide]')).map((z) => z.getAttribute('data-guide'))
-    expect(zones.sort()).toEqual(['allocation', 'play', 'river', 'stress', 'technologies'])
+    expect(zones.sort()).toEqual(['allocation', 'play', 'river', 'stress', 'stress', 'technologies'])
   })
 
   it('[tablero#5] the play button simulates the year', async () => {

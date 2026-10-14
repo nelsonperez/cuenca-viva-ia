@@ -151,7 +151,9 @@
   position: relative;
   z-index: 50;
   border-radius: 18px;
-  box-shadow: 0 0 0 4px var(--color-amber);
+  box-shadow:
+    0 0 0 8px var(--color-card),
+    0 0 0 12px var(--color-amber);
 }
 
 .guide-target:not(button) {

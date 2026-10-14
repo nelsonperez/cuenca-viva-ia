@@ -11,15 +11,15 @@ Este proyecto se trabaja con Spec-Driven Development. Antes de proponer o escrib
 ## Estado actual
 
 - **Plan 000 (migración a Angular):** terminado. La app es Angular 21 + Signals + Tailwind, con Jest. La versión React queda en la etiqueta `react-final`.
-- **Plan siguiente:** [001 — Bienvenida, misión y primer año guiado](.spec-kit/plans/001-bienvenida-y-mision.md). Ya se puede empezar.
+- **Plan 001 (bienvenida, misión y primer año guiado):** terminado en la rama `feat/bienvenida`.
 - **Entorno:** Node 20.20 → Angular 21.x y TypeScript ~5.9 (ADR 001).
 
 ## Mapa rápido
 
 - `src/engine/`: motor de simulación, funciones puras. No se toca durante la migración.
 - `src/tutor/`: tutor por reglas, funciones puras. No se toca durante la migración.
-- `src/game/`: reducer de la partida, puro. Lo va a envolver `GameStore` (ADR 005).
+- `src/game/`: reducer de la partida y medallas, puros. Los envuelve `GameStore` (ADR 005).
 - `src/app/core/`: `GameStore` y `TutorService` (Signals).
-- `src/app/features/`: tablero (`board/`) y resumen (`summary/`).
-- `src/app/shared/`: ícono y pipe `fmt`.
+- `src/app/features/`: bienvenida y "Cómo se juega" (`welcome/`), guía del primer año (`guide/`), tablero (`board/`) y resumen (`summary/`).
+- `src/app/shared/`: ícono, pipe `fmt`, medalla y globo de Hidro.
 - `src/app/testing/render.ts`: helper de pruebas que monta un componente con el store real.

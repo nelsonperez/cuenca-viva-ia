@@ -12,6 +12,7 @@ import { GuideOverlay } from './guide-overlay'
     <div data-guide="river">Río</div>
     <div data-guide="allocation"><input id="slider" type="range" /></div>
     <div data-guide="stress">Estrés</div>
+    <div data-guide="stress">Acuífero</div>
     <div data-guide="technologies"><button type="button">Comprar</button></div>
     <button data-guide="play" type="button">Simular año</button>
     <app-guide-overlay />
@@ -52,6 +53,7 @@ describe('GuideOverlay', () => {
     store.dispatch({ type: 'setCoverage', sector: 'agr', value: 90 })
     await settle()
     expect(target()).toBe('stress')
+    expect(element.querySelectorAll('.guide-target')).toHaveLength(2)
     expect(document.activeElement!.textContent).toContain('Entendido')
   })
 
