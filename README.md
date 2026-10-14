@@ -30,15 +30,17 @@ En curso: migración del frontend de React a Angular ([plan 000](.spec-kit/plans
   - `facts(resultado)` es la lista de datos que el tutor puede mencionar.
   - `ungroundedNumbers(texto, datos)` detecta números que no salen del motor.
 - `src/game/`: estado de la partida (reducer), vista previa y partidas terminadas.
-- `src/ui/`: tablero y resumen de partida.
+- `src/app/`: aplicación Angular (componentes standalone, Signals, Tailwind). El tablero se está migrando desde React (plan 000); la última versión React está en la etiqueta `react-final`.
 
 ## Comandos
 
 ```bash
 npm install
-npm test          # pruebas del motor
+npm test          # pruebas (Jest) con cobertura
 npm run typecheck
-npm run dev
+npm run lint
+npm start         # servidor de desarrollo en http://localhost:4200
+npm run build     # build de producción en dist/
 ```
 
 ## Qué verifican las pruebas

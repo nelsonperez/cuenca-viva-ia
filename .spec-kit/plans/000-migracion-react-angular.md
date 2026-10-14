@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: En curso (fases 0, 1 y 2 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: En curso (fases 0 a 3 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -69,15 +69,19 @@ Durante la transición, `npm test` corre `vitest run` (solo `*.test.ts`, con `te
 
 ### Fase 3 — Toolchain Angular (la UI queda vacía temporalmente)
 
-- [ ] 3.1 Quitar `react`, `react-dom`, `@types/react*`, `@vitejs/plugin-react`, `vite.config.ts`, `src/main.tsx`, `src/App.tsx`, `src/ui/` y el plugin `react` de `.oxlintrc.json`. El código React queda en la etiqueta `react-final` como referencia.
-- [ ] 3.2 Instalar Angular 21.x (`core`, `common`, `compiler`, `platform-browser`), `@angular/build`, `@angular/cli` y `@angular/compiler-cli`, y bajar TypeScript a `~5.9`. Instalar `jest-preset-angular` y `jsdom`, y pasar `jest.config.js` a ese preset.
-- [ ] 3.3 Crear `angular.json`, `tsconfig.json`, `tsconfig.app.json` y `tsconfig.spec.json` según la configuración que genera `ng new` (strict, `strictTemplates`), con presupuesto de bundle (Art. 6.7).
-- [ ] 3.4 Crear `src/main.ts` y `src/app/app.config.ts` con `provideZonelessChangeDetection()` y `provideBrowserGlobalErrorListeners()`, sin router (una sola pantalla).
-- [ ] 3.5 Mover `index.html` a `src/index.html`, conservando `lang="es"`, la meta descripción y Google Fonts (Barlow).
-- [ ] 3.6 Instalar Tailwind v4 (`tailwindcss`, `@tailwindcss/postcss`, `.postcssrc.json`) y declarar en `@theme` los tokens de `src/index.css`.
-- [ ] 3.7 Scripts: `start` (`ng serve`), `build` (`ng build`), `test` (`jest`), `test:coverage`, `lint` (`oxlint`) y `typecheck` (`tsc -p tsconfig.app.json --noEmit` + spec).
+- [x] 3.1 Quitar `react`, `react-dom`, `@types/react*`, `@vitejs/plugin-react`, `vite`, `vite.config.ts`, `tsconfig.node.json`, `src/main.tsx`, `src/App.tsx`, `src/ui/`, `src/index.css` y el plugin `react` de `.oxlintrc.json`. El código React queda en la etiqueta `react-final` como referencia.
+- [x] 3.2 Instalar Angular 21.2 (`core`, `common`, `compiler`, `platform-browser`, más `rxjs` y `tslib`, que Angular exige), `@angular/build`, `@angular/cli` y `@angular/compiler-cli`, y bajar TypeScript a 5.9.3. Instalar `jest-preset-angular` 17, `jest-environment-jsdom` y `jsdom`, y pasar `jest.config.js` a `createCjsPreset` con `setupZonelessTestEnv`. `ts-jest` deja de ser dependencia directa porque viene con el preset.
+- [x] 3.3 Crear `angular.json`, `tsconfig.json`, `tsconfig.app.json` y `tsconfig.spec.json` según la configuración de `ng new` (strict, `strictTemplates`), con presupuesto inicial de 300 kB (advertencia) y 500 kB (error), y componentes OnPush por defecto en los schematics. `noPropertyAccessFromIndexSignature` queda en `false` porque el tutor lee `facts()` como `f.pumping`.
+- [x] 3.4 Crear `src/main.ts` y `src/app/app.config.ts` con `provideZonelessChangeDetection()` y `provideBrowserGlobalErrorListeners()`, sin router. `App` es un componente provisorio, con encabezado, aviso y nota legal (Art. 1.3), y su prueba se escribió primero.
+- [x] 3.5 Mover `index.html` a `src/index.html`, conservando `lang="es"`, la meta descripción y Google Fonts (Barlow).
+- [x] 3.6 Instalar Tailwind 4.3 (`tailwindcss`, `@tailwindcss/postcss`, `.postcssrc.json`) y declarar en `@theme` los tokens de `src/index.css` (colores y tipografías) y los estilos base (h1–h3, fondo).
+- [x] 3.7 Scripts: `start` (`ng serve`), `build` (`ng build`), `test` (`jest --coverage`), `lint` (`oxlint`) y `typecheck` (`tsc` sobre `tsconfig.app.json` y `tsconfig.spec.json`). Además, oxlint rechaza los imports de React con `no-restricted-imports` (Art. 3.4); se probó con un archivo que importaba `react`.
 
-**Criterio de salida:** `npm run build` genera una app vacía, y `npm test` y `npm run lint` pasan.
+**Criterio de salida:** `npm run build` genera una app vacía, y `npm test` y `npm run lint` pasan. **Cumplido:**
+- 57 pruebas en verde (55 del dominio + 2 de `App`), con 100 % de ramas en el dominio;
+- typecheck y lint sin errores;
+- bundle inicial de 99,8 kB (30,2 kB transferidos), contra 256 kB de la versión React;
+- en el navegador, la app carga sin errores en la consola y aplica los tokens (color de h1, Barlow Semi Condensed, fondo `ground`).
 
 ### Fase 4 — Servicios con Signals (TDD)
 

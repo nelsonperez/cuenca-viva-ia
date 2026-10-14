@@ -33,7 +33,7 @@ spec (qué) → plan (cómo) → verificación constitucional → pruebas en roj
 | Tipo | Archivo | Estado |
 |---|---|---|
 | Constitución | [constitution.md](constitution.md) | v1.0.0 |
-| Plan 000 | [plans/000-migracion-react-angular.md](plans/000-migracion-react-angular.md) | En curso (fases 0, 1 y 2 terminadas) |
+| Plan 000 | [plans/000-migracion-react-angular.md](plans/000-migracion-react-angular.md) | En curso (fases 0 a 3 terminadas) |
 | Plan 001 | [plans/001-bienvenida-y-mision.md](plans/001-bienvenida-y-mision.md) | Propuesto (después del plan 000) |
 | Línea de base | [baseline/README.md](baseline/README.md) | Versión React, 2026-10-14 |
 | ADR 001 | [adr/001-angular-21-node-20.md](adr/001-angular-21-node-20.md) | Aceptado |

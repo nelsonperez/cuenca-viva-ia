@@ -14,7 +14,7 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
   agua, verdes para el agro, grises para la minería).
 - Las bases piden que pueda usarse con el equipamiento de las escuelas: página liviana, sin
   servidor para jugar, usable en pantallas chicas.
-- Código: `src/ui/`, `src/game/`.
+- Código: `src/app/` (en migración a Angular; la versión React está en la etiqueta `react-final`), `src/game/`.
 
 ## Requerimientos
 
