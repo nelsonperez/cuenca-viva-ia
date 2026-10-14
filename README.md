@@ -8,7 +8,9 @@ Propuesta para el Desafío 2 de la hackatón Hackeando la Minería (Ciclo Pilare
 
 Primera versión jugable: motor de simulación, tutor por reglas (sin IA) y tablero con comparación de dos partidas. Falta el tutor con IA y su evaluación automática.
 
-El proyecto se trabaja con specs: cada pieza tiene su documento en `specs/` con requerimientos y criterios de aceptación.
+El proyecto se trabaja con specs: cada pieza tiene su documento en `specs/` con requerimientos y criterios de aceptación. La constitución, los planes y las decisiones de arquitectura están en `.spec-kit/` (ver `.spec-kit/README.md`).
+
+En curso: migración del frontend de React a Angular ([plan 000](.spec-kit/plans/000-migracion-react-angular.md)).
 
 ## Límites del modelo
 
