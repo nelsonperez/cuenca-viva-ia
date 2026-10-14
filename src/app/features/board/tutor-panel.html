@@ -1,0 +1,29 @@
+<div class="card flex-col items-start gap-4 sm:flex-row">
+  <div
+    class="flex size-14 flex-none items-center justify-center rounded-full border-2 border-water-bright bg-water-soft text-water"
+  >
+    <app-icon name="tutor" [size]="30" />
+  </div>
+  <div class="flex min-w-0 flex-1 flex-col gap-2">
+    <h2 class="text-[17px] text-water-dark">Tutor</h2>
+    @if (tutor.lastYear().length > 0) {
+      <details open>
+        <summary class="cursor-pointer text-[15px] font-semibold">Qué pasó el año pasado</summary>
+        <ul class="mt-2 flex max-w-[85ch] list-disc flex-col gap-1 pl-5 text-[15px]">
+          @for (line of tutor.lastYear(); track line) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+      </details>
+    }
+    @if (tutor.advice(); as advice) {
+      <p
+        class="m-0 max-w-[85ch] rounded-[4px_14px_14px_14px] px-3.5 py-2.5 text-[17px] leading-[1.45]"
+        [class]="tipClass[advice.tone]"
+        aria-live="polite"
+      >
+        {{ advice.text }}
+      </p>
+    }
+  </div>
+</div>

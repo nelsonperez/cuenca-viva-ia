@@ -1,0 +1,60 @@
+@if (view(); as v) {
+  <div class="card">
+    <div class="card-head">
+      <h2>Acuífero subterráneo</h2>
+      <span class="text-sm text-muted">Valle de Tulum</span>
+    </div>
+    <div class="flex flex-wrap items-stretch gap-4">
+      <div
+        class="relative h-[200px] w-[140px] flex-none overflow-hidden rounded-[16px_16px_26px_26px] border-3 border-water-dark bg-[#e8eef1]"
+        role="img"
+        [attr.aria-label]="'Nivel del acuífero: ' + (v.level | fmt: 0) + ' por ciento de su capacidad'"
+      >
+        <div
+          class="absolute inset-x-0 bottom-0 transition-[height] duration-600"
+          [class]="v.fill"
+          [style.height.%]="v.level"
+        ></div>
+        <div
+          class="absolute inset-x-0 border-t-3 border-dashed border-amber transition-[bottom] duration-300"
+          [style.bottom.%]="v.projected"
+        ></div>
+        <div
+          class="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[40px] font-bold text-ink [text-shadow:0_0_6px_#fff,0_0_6px_#fff]"
+        >
+          {{ v.level | fmt: 0 }}%
+        </div>
+      </div>
+
+      <div class="flex min-w-0 flex-[1_1_200px] flex-col justify-center gap-3.5">
+        <div class="flex flex-col">
+          <span class="text-[13px] font-semibold tracking-[0.06em] text-muted uppercase">Nivel del acuífero</span>
+          <span class="font-display text-[30px] leading-[1.1] font-bold text-water-dark">
+            {{ v.p.groundBefore | fmt }} UE
+          </span>
+        </div>
+        <div class="flex items-center gap-2.5 text-[15px]">
+          <span class="w-[22px] flex-none border-t-3 border-dashed border-amber" aria-hidden="true"></span>
+          <span>
+            Al cierre del año:
+            <strong [class]="v.rises ? 'text-agr' : 'text-bad'">
+              {{ v.p.groundAfter | fmt }} UE ({{ v.rises ? '+' : '−' }}{{ v.change | fmt }})
+            </strong>
+          </span>
+        </div>
+        <div class="grid grid-cols-[70px_minmax(0,1fr)_48px] items-center gap-x-2.5 gap-y-2 text-sm">
+          <span>Recarga</span>
+          <div class="bar-track h-2">
+            <div class="bar-fill bg-water-bright" [style.width.%]="v.rechargeWidth"></div>
+          </div>
+          <strong class="text-right">+{{ v.recharge | fmt }}</strong>
+          <span>Bombeo</span>
+          <div class="bar-track h-2">
+            <div class="bar-fill bg-[#c25a1a]" [style.width.%]="v.pumpingWidth"></div>
+          </div>
+          <strong class="text-right">−{{ v.p.pumping | fmt }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,14 @@
+<div class="min-h-screen">
+  <app-header />
+
+  @if (store.preview()) {
+    <app-board />
+  } @else {
+    <app-summary />
+  }
+
+  <p class="mx-auto max-w-[1440px] px-4 pt-3 pb-6 text-[13px] text-muted min-[901px]:px-8">
+    Modelo educativo con cantidades de ejemplo en unidades educativas (UE). No representa
+    mediciones reales ni sirve para decidir sobre el recurso. Pendiente de revisión científica.
+  </p>
+</div>

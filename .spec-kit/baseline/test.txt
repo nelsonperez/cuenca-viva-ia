@@ -1,0 +1,14 @@
+
+> cuenca-viva-ia@0.0.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/admin/dev/cuenca-viva-ia
+
+
+ Test Files  3 passed (3)
+      Tests  37 passed (37)
+   Start at  11:07:02
+   Duration  1.01s (transform 421ms, setup 0ms, import 579ms, tests 702ms, environment 1ms)
+
+exit=0

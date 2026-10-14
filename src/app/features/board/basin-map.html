@@ -1,0 +1,61 @@
+@if (store.preview(); as p) {
+  <div class="card">
+    <div class="card-head">
+      <h2>Mapa conceptual de la cuenca</h2>
+      <span class="text-sm text-muted">Oeste → Este</span>
+    </div>
+
+    <div class="grid grid-cols-[minmax(0,1fr)_24px_minmax(0,1fr)] items-center gap-2">
+      <div class="flex min-w-0 items-center gap-3 rounded-[14px] bg-[#eef2f4] p-3.5 text-[#3e4f58]">
+        <app-icon name="mountain" [size]="32" />
+        <div class="flex min-w-0 flex-col text-[13px]">
+          <strong class="text-base">Cordillera</strong>
+          <span class="font-semibold text-[#8a5100]">{{ melt[p.yearType] }}</span>
+        </div>
+      </div>
+      <span class="text-center text-[22px] font-bold text-water-bright" aria-hidden="true">→</span>
+      <div class="flex min-w-0 items-center gap-3 rounded-[14px] bg-water-soft p-3.5 text-water-dark">
+        <app-icon name="river" [size]="32" />
+        <div class="flex min-w-0 flex-col text-[13px]">
+          <strong class="text-base">Río San Juan</strong>
+          <span>Trae {{ p.inflow | fmt }} UE este año</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+      @for (sector of sectors; track sector) {
+        <div
+          class="flex min-w-0 flex-col gap-2 rounded-[14px] border border-[color-mix(in_srgb,var(--tone)_25%,white)] bg-(--soft) p-3"
+          [class]="ui[sector].tone"
+        >
+          <div class="flex items-center gap-2 text-sm font-semibold text-(--tone)">
+            <app-icon [name]="ui[sector].icon" />
+            <span class="text-ink">{{ ui[sector].title }}</span>
+          </div>
+          <span class="font-display text-[22px] font-bold text-(--tone)">
+            {{ p.delivered[sector] | fmt }} UE
+          </span>
+          <div class="bar-track">
+            <div class="bar-fill bg-(--tone)" [style.width.%]="p.coverage[sector] * 100"></div>
+          </div>
+          <span class="text-[13px] text-muted">
+            {{ p.coverage[sector] * 100 | fmt: 0 }} % de su necesidad
+          </span>
+        </div>
+      }
+    </div>
+
+    <div class="flex items-center gap-2.5 rounded-[10px] bg-[#eaf4f9] px-3 py-2.5 text-sm text-water-dark">
+      <app-icon name="arrowDown" [size]="18" />
+      <span>
+        @if (p.riverFlow > 0) {
+          Quedan <strong>{{ p.riverFlow | fmt }} UE</strong> en el río:
+          <strong>+{{ p.riverRecharge | fmt }}</strong> infiltran en el cono aluvial.
+        } @else {
+          No queda agua en el río: su cauce no recarga el acuífero este año.
+        }
+      </span>
+    </div>
+  </div>
+}
