@@ -1,6 +1,6 @@
 # Plan 001 — Bienvenida, misión y primer año guiado
 
-**Estado**: Terminado (falta mergear el PR) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
+**Estado**: Terminado ([PR #2](https://github.com/nelsonperez/cuenca-viva-ia/pull/2)) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
 
 ## Objetivo
 
