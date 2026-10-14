@@ -1,6 +1,6 @@
 # Plan 001 — Bienvenida, misión y primer año guiado
 
-**Estado**: Propuesto (empieza cuando terminen las fases 4 y 5 del plan 000) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
+**Estado**: En curso (fase 1 terminada) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
 
 ## Objetivo
 
@@ -42,12 +42,12 @@ Al empezar este plan ya existen, por el plan 000:
 
 ### Fase 1 — Medallas en el dominio (TDD)
 
-- [ ] 1.1 Pruebas en rojo para `medals(summary, params)` en `src/game/medals.spec.ts`: casos en el límite de cada umbral (bienvenida#11–13).
-- [ ] 1.2 `GOALS` en `src/engine/params.ts`, con los valores iniciales de la spec, y `medals()` en `src/game/medals.ts`.
-- [ ] 1.3 Prueba de calibración con las tres estrategias de referencia de `engine.spec.ts`: "todo sin tecnología" gana como mucho 1 medalla y "prudente" al menos 2. Ajustar los umbrales hasta que pase y anotar los valores finales en la spec.
-- [ ] 1.4 Prueba de propiedad: en 200 partidas aleatorias, cada medalla coincide con su condición sobre `summary`.
+- [x] 1.1 Pruebas en rojo para `medals(summary, params)` en `src/game/medals.spec.ts`: casos en el límite de cada umbral (bienvenida#11–13).
+- [x] 1.2 `GOALS` en `src/engine/params.ts`, con los valores iniciales de la spec, y `medals()` en `src/game/medals.ts`.
+- [x] 1.3 Prueba de calibración con las tres estrategias de referencia de `engine.spec.ts`: "todo sin tecnología" gana como mucho 1 medalla y "prudente" al menos 2. Ajustar los umbrales hasta que pase y anotar los valores finales en la spec.
+- [x] 1.4 Prueba de propiedad: en 200 partidas aleatorias, cada medalla coincide con su condición sobre `summary`.
 
-**Criterio de salida:** bienvenida#11–13 "Cumplido (prueba)" y cobertura del dominio ≥ 95 %.
+**Criterio de salida:** bienvenida#11–13 "Cumplido (prueba)" y cobertura del dominio ≥ 95 %. **Cumplido:** los valores iniciales ya cumplían la calibración y quedaron como definitivos. Se agregó `medalsSoFar()` para la franja de misión (bienvenida#14) y `medals.ts` tiene 100 % de cobertura.
 
 ### Fase 2 — Estado de pantallas y guía en `GameStore` (TDD)
 

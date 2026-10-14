@@ -1,6 +1,6 @@
 # Spec: Bienvenida, misión y primer año guiado
 
-**Estado**: Aprobada (sin implementar) · **Plan**: [001](../.spec-kit/plans/001-bienvenida-y-mision.md)
+**Estado**: Aprobada (en implementación) · **Plan**: [001](../.spec-kit/plans/001-bienvenida-y-mision.md)
 
 ## Objetivo
 
@@ -62,12 +62,22 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
   - ganar las 3 requiere combinar reparto prudente con tecnología.
 - La pantalla visible se guarda en el estado de la aplicación (`welcome`, `howTo`, `playing`), no en el dominio. El resumen se sigue mostrando cuando el motor indica que la partida terminó.
 - Los pasos de la guía son datos: zona señalada, texto armado con la vista previa y condición de avance.
-- Valores iniciales para calibrar: `aquiferSafe = 0,9`, `noOneWithout = 0,8`, `calmBasin = 1,2`. **No son definitivos.**
+- Valores calibrados (provisionales como el resto del modelo): `aquiferSafe = 0,9`, `noOneWithout = 0,8`, `calmBasin = 1,2`. Con ellos:
+
+  | Estrategia | Acuífero final / inicial | Peor cobertura | Estrés medio | Medallas |
+  |---|---|---|---|---|
+  | Todo, sin tecnología | 0,21 | 0,95 | 1,46 | 1 |
+  | Todo, con tecnología | 0,74 | 1 | 1,15 | 2 |
+  | Prudente, sin tecnología | 0,50 | 0,85 | 1,31 | 1 |
+  | Prudente, con tecnología | 0,98 | 0,85 | 1,03 | 3 |
+
+- Un valor exactamente en el umbral cuenta (con tolerancia de punto flotante): elegir 80 % para un sector da "Nadie sin agua".
+- La franja de misión usa `medalsSoFar(historia, vista previa)`: las medallas que se ganarían si la partida terminara con el año en borrador.
 
 ## Tareas
 
-- [ ] Calibrar los umbrales y fijar los valores en esta spec
-- [ ] `medals()` con pruebas
+- [x] Calibrar los umbrales y fijar los valores en esta spec
+- [x] `medals()` con pruebas
 - [ ] Bienvenida y tarjetas de "Cómo se juega"
 - [ ] Guía del primer año
 - [ ] Medallas en el resumen y franja de misión en el tablero
@@ -81,9 +91,10 @@ Que un estudiante que abre el juego por primera vez entienda qué tiene que hace
 | 1–2 | Bienvenida y "Nueva partida" | Pendiente |
 | 3–4 | Tarjetas de "Cómo se juega", con teclado | Pendiente |
 | 5–9 | Guía del primer año: avance, salteo, teclado, no se repite | Pendiente |
-| 10–13 | Medallas en el resumen según los umbrales | Pendiente |
+| 10 | Medallas en el resumen | Pendiente |
+| 11–13 | Condición de cada medalla | Cumplido (prueba) |
 | 14 | Franja de misión en el tablero | Pendiente |
 | 15 | Volver al inicio conservando las partidas | Pendiente |
 | 16 | Ningún número sin respaldo | Pendiente |
-| — | Umbrales calibrados con las estrategias de referencia | Pendiente |
+| — | Umbrales calibrados con las estrategias de referencia | Cumplido (prueba) |
 | — | Un estudiante juega sin explicación previa | Pendiente |
