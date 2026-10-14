@@ -13,7 +13,7 @@ conexión y la línea de base contra la que se va a comparar el tutor con IA.
 - El motor entrega por año un resultado con valores intermedios y reglas activadas
   (`YearResult`).
 - Decisión de proyecto: el motor calcula y el tutor solo interpreta.
-- Código: `src/tutor/`.
+- Código: `src/tutor/`. Pruebas: `src/tutor/explain.spec.ts` (Jest).
 
 ## Requerimientos
 

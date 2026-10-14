@@ -4,7 +4,7 @@ import { describe, expect, it } from '@jest/globals'
 import { readdirSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const DOMAIN = ['engine']
+const DOMAIN = ['engine', 'tutor', 'game']
 
 const FORBIDDEN_IMPORT =
   /(?:from|import|require\s*\()\s*['"]((?:@angular|rxjs|react|react-dom|preact)(?:\/[^'"]*)?)['"]/g

@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: En curso (fases 0 y 1 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: En curso (fases 0, 1 y 2 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -58,12 +58,14 @@ Durante la transición, `npm test` corre `vitest run` (solo `*.test.ts`, con `te
 
 ### Fase 2 — Tutor por reglas y estado de partida: cambio de runner
 
-- [ ] 2.1 `explain.test.ts` → `explain.spec.ts` y `game.test.ts` → `game.spec.ts`, solo con el cambio de imports.
-- [ ] 2.2 Verificar la prueba de "ningún número sin respaldo" en 200 partidas aleatorias (req. 8 del tutor).
-- [ ] 2.3 Extender la prueba de arquitectura de 1.4 a `src/tutor/` y `src/game/`.
-- [ ] 2.4 Quitar Vitest de las dependencias.
+- [x] 2.1 `explain.test.ts` → `explain.spec.ts` y `game.test.ts` → `game.spec.ts`, solo con el cambio de imports. Pasan 12 de 12 y 6 de 6, igual que en la línea de base.
+- [x] 2.2 Verificar la prueba de "ningún número sin respaldo" en 200 partidas aleatorias (req. 8 del tutor): pasa.
+- [x] 2.3 Extender la prueba de arquitectura de 1.4 a `src/tutor/` y `src/game/`, con umbrales de cobertura para las dos carpetas.
+- [x] 2.4 Quitar Vitest de las dependencias y de `vite.config.ts`. `npm test` pasa a ser `jest --coverage`.
 
-**Criterio de salida:** criterios 1 a 8 del tutor siguen "Cumplido (prueba)" y las pruebas del reducer pasan sin cambios.
+**Cambio respecto de lo previsto:** la cobertura de ramas del tutor daba 81 % (< 90 %, Art. 6.3). Se agregaron 5 pruebas de casos límite sin tocar las existentes: desmarcar una compra en borrador, un año en que el acuífero no cambia, `deliveredSharePercent` sin pedido, `ungroundedNumbers` con datos infinitos o sin números, y `fmt` con −0. Total del dominio: 55 pruebas, 100 % de líneas y de ramas.
+
+**Criterio de salida:** criterios 1 a 8 del tutor siguen "Cumplido (prueba)" y las pruebas del reducer pasan sin cambios. **Cumplido.**
 
 ### Fase 3 — Toolchain Angular (la UI queda vacía temporalmente)
 

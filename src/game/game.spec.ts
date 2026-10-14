@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from '@jest/globals'
 import { DEFAULT_PARAMS as P, DEFAULT_SCENARIO as SC } from '../engine/params'
 import { newGame, preview, reduce, toDecision } from './game'
 import type { Action, Game } from './game'
@@ -59,5 +59,11 @@ describe('game', () => {
     expect(again.basin.year).toBe(0)
     expect(again.history).toHaveLength(0)
     expect(again.finished).toHaveLength(1)
+  })
+
+  it('toggling a drafted purchase again removes it', () => {
+    const leaks: Action = { type: 'toggleBuy', technology: 'leaks' }
+    expect(play(newGame(P), leaks).draft.buy).toEqual(['leaks'])
+    expect(play(newGame(P), leaks, leaks).draft.buy).toEqual([])
   })
 })

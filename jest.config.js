@@ -19,10 +19,12 @@ export default {
       },
     ],
   },
-  collectCoverageFrom: ['src/engine/**/*.ts', '!src/**/*.spec.ts'],
+  collectCoverageFrom: ['src/{engine,tutor,game}/**/*.ts', '!src/**/*.spec.ts'],
   coverageReporters: ['text-summary', 'text'],
   // Constitution, Art. 6.3.
   coverageThreshold: {
     './src/engine/': { lines: 95, branches: 90 },
+    './src/tutor/': { lines: 95, branches: 90 },
+    './src/game/': { lines: 95, branches: 90 },
   },
 }

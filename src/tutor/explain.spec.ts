@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from '@jest/globals'
 import { initialState, playGame, step } from '../engine/engine'
 import type { Strategy } from '../engine/engine'
 import { DEFAULT_PARAMS as P, DEFAULT_SCENARIO as SC } from '../engine/params'
@@ -117,5 +117,30 @@ describe('grounding', () => {
         expect(ungroundedNumbers(advise(result).text, known)).toEqual([])
       }
     }
+  })
+})
+
+describe('edge cases', () => {
+  const nothing: Decision = { requested: { agr: 0, mun: 0, min: 0 }, buy: [] }
+  const still = step(initialState(P), nothing, P, year(0)).result
+
+  it('explains a year in which the aquifer does not change', () => {
+    const explanation = explainYear(still).join(' ')
+    expect(explanation).toContain('El acuífero se mantuvo en 100 UE.')
+    expect(explanation).not.toContain('El riego devolvió')
+    expect(advise(still).text).toBe('El río alcanza para lo que pedís y el acuífero no cambiaría este año.')
+  })
+
+  it('counts a year with nothing requested as fully delivered', () => {
+    expect(facts(still).deliveredSharePercent).toBe(100)
+  })
+
+  it('ignores facts that are not finite and texts without numbers', () => {
+    expect(ungroundedNumbers('Estrés 3', { stress: Infinity })).toEqual(['3'])
+    expect(ungroundedNumbers('Sin números', { inflow: 100 })).toEqual([])
+  })
+
+  it('never writes a negative zero', () => {
+    expect(fmt(-0.04)).toBe('0')
   })
 })
