@@ -1,0 +1,37 @@
+ ✓ src/game/game.test.ts > game > starts delivering every sector its full need
+ ✓ src/game/game.test.ts > game > previews the drafted decision without advancing
+ ✓ src/game/game.test.ts > game > does not let the player draft a purchase it cannot afford
+ ✓ src/game/game.test.ts > game > applies the coverage to the demand after the drafted purchase
+ ✓ src/game/game.test.ts > game > simulating advances a year, keeps the coverage and clears the purchases
+ ✓ src/game/game.test.ts > game > records the finished game and keeps it after restarting
+ ✓ src/engine/engine.test.ts > reference strategies > deliver everything, no technology
+ ✓ src/engine/engine.test.ts > reference strategies > deliver everything, buying technology as credits allow
+ ✓ src/engine/engine.test.ts > reference strategies > prudent deliveries with technology keep the aquifer highest
+ ✓ src/engine/engine.test.ts > reference strategies > technology lowers stress under the same coverage
+ ✓ src/engine/engine.test.ts > water balance > holds for random strategies and keeps the aquifer within its limits
+ ✓ src/engine/engine.test.ts > year rules > uses river water first and returns part of irrigation to the aquifer
+ ✓ src/engine/engine.test.ts > year rules > recharges the aquifer with part of the water left in the river
+ ✓ src/engine/engine.test.ts > year rules > pumps only what the river cannot cover
+ ✓ src/engine/engine.test.ts > year rules > cuts every sector by the same share when the pump cap is reached
+ ✓ src/engine/engine.test.ts > year rules > cannot pump more than the aquifer holds
+ ✓ src/engine/engine.test.ts > year rules > loses what the aquifer cannot hold
+ ✓ src/engine/engine.test.ts > year rules > clamps requests to the sector demand
+ ✓ src/engine/engine.test.ts > year rules > refuses to play past the last year
+ ✓ src/engine/engine.test.ts > technologies and credits > each technology lowers the demand of its own sector
+ ✓ src/engine/engine.test.ts > technologies and credits > takes effect the year it is bought and stays installed
+ ✓ src/engine/engine.test.ts > technologies and credits > drip irrigation also reduces what returns to the aquifer
+ ✓ src/engine/engine.test.ts > technologies and credits > ignores purchases that are unaffordable or already owned
+ ✓ src/engine/engine.test.ts > technologies and credits > carries unspent credits over and adds the yearly income
+ ✓ src/engine/engine.test.ts > stress bands > classifies stress
+ ✓ src/tutor/explain.test.ts > number format > uses comma decimals and drops trailing zeros
+ ✓ src/tutor/explain.test.ts > explainYear > describes a year the river can cover
+ ✓ src/tutor/explain.test.ts > explainYear > explains pumping
+ ✓ src/tutor/explain.test.ts > explainYear > explains the cut when the pump cap is reached
+ ✓ src/tutor/explain.test.ts > explainYear > explains the cut when the aquifer runs dry
+ ✓ src/tutor/explain.test.ts > explainYear > explains the recharge from water left in the river
+ ✓ src/tutor/explain.test.ts > explainYear > compares stress with and without technology, and flags the drip trade-off
+ ✓ src/tutor/explain.test.ts > advise > warns when the request cannot be met
+ ✓ src/tutor/explain.test.ts > advise > cautions when the aquifer would drop
+ ✓ src/tutor/explain.test.ts > advise > encourages leaving water in the river
+ ✓ src/tutor/explain.test.ts > grounding > flags numbers that are not facts of the year
+ ✓ src/tutor/explain.test.ts > grounding > never writes a number the engine did not produce

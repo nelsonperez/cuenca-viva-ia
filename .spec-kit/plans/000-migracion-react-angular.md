@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: Propuesto · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: En curso (fase 0 terminada) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -37,9 +37,9 @@ Reemplazar la capa de UI en React por Angular (Standalone + Signals + Tailwind) 
 
 ### Fase 0 — Línea de base (sin cambiar código)
 
-- [ ] 0.1 Descartar el cambio accidental sin commitear en `src/ui/Board.tsx` (texto ` in` antes del primer `import`).
-- [ ] 0.2 Crear la etiqueta `react-final` sobre `6046163` y la rama `feat/angular`.
-- [ ] 0.3 Registrar la línea de base en `.spec-kit/baseline/`: cantidad de pruebas que pasan (`npm test`), tamaño del bundle (`npm run build`) y capturas del tablero (año 1, año con sequía, resumen con dos partidas, ancho de 375 px).
+- [x] 0.1 Descartar el cambio accidental sin commitear en `src/ui/Board.tsx` (texto ` in` antes del primer `import`).
+- [x] 0.2 Crear la etiqueta `react-final` sobre `6046163` y la rama `feat/angular`.
+- [x] 0.3 Registrar la línea de base en [.spec-kit/baseline/](../baseline/README.md) (37 pruebas: motor 19, tutor 12, partida 6; JS 244 kB): cantidad de pruebas que pasan (`npm test`), tamaño del bundle (`npm run build`) y capturas del tablero (año 1, año con sequía, resumen con dos partidas, ancho de 375 px).
 - [x] 0.4 Crear `.spec-kit/` con constitución, plan, ADRs, plantillas y checklist, y `AGENTS.md`.
 
 **Salida:** evidencia guardada contra la cual comparar la paridad.
