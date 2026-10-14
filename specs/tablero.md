@@ -38,6 +38,10 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
     tarjeta explica que 100 % es todo lo que el sector necesita, y cada sector muestra cuántas UE
     recibiría y cuántas necesita ("Recibe 30 de 60 UE"). Lo que recibiría sale de la vista previa,
     así que también refleja el recorte cuando el río y el bombeo no alcanzan.
+11. **WHEN** se ve el acuífero **THEN** queda claro de qué es su porcentaje: muestra cuántas UE
+    tiene y cuántas puede guardar ("100 de 200 UE") y que el porcentaje es de su capacidad; el
+    porcentaje del tanque nunca queda tapado por la línea de la proyección al cierre del año; y las
+    cantidades en cero se escriben "0", sin signo.
 
 ## Diseño
 
@@ -66,3 +70,4 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
 | 8 | Pantalla angosta | Verificado en el navegador a 375 px, sin scroll horizontal |
 | 9 | Teclado | Verificado en el navegador: partida completa solo con teclado (Tab, flechas, Espacio, Enter) |
 | 10 | Porcentaje del reparto explicado en UE | Cumplido (prueba) y verificado en el navegador a 1280 y 375 px |
+| 11 | Nivel del acuífero explicado | Cumplido (prueba) y verificado en el navegador a 1280 y 375 px |
