@@ -12,23 +12,40 @@
       </div>
     </div>
 
-    <div
-      class="flex items-center gap-3.5 rounded-full border border-[#f2c98a] bg-amber-soft px-[18px] py-2.5 font-display text-base font-bold text-amber-ink sm:text-[19px]"
-    >
-      <span>{{ turn() }}</span>
-      <div class="flex gap-[5px]" aria-hidden="true">
-        @for (step of steps(); track $index) {
-          <span
-            [attr.data-step]="step"
-            class="h-1.5 w-[22px] rounded-[3px]"
-            [class]="stepClass[step]"
-          ></span>
-        }
+    @if (store.screen() === 'playing') {
+      <div
+        class="flex items-center gap-3.5 rounded-full border border-[#f2c98a] bg-amber-soft px-[18px] py-2.5 font-display text-base font-bold text-amber-ink sm:text-[19px]"
+      >
+        <span>{{ turn() }}</span>
+        <div class="flex gap-[5px]" aria-hidden="true">
+          @for (step of steps(); track $index) {
+            <span
+              [attr.data-step]="step"
+              class="h-1.5 w-[22px] rounded-[3px]"
+              [class]="stepClass[step]"
+            ></span>
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <span class="rounded-full bg-water-soft px-3.5 py-2 text-sm font-semibold text-water-dark">
       Datos simulados · Uso educativo
     </span>
   </div>
+
+  @if (mission(); as medals) {
+    <div class="border-t border-line">
+      <div
+        class="mx-auto flex max-w-[1440px] flex-wrap items-center gap-x-6 gap-y-2 px-4 py-2 min-[901px]:px-8"
+        aria-label="Misión"
+        role="group"
+      >
+        <span class="text-[13px] font-semibold tracking-[0.06em] text-muted uppercase">Misión</span>
+        @for (m of medals; track m.medal) {
+          <app-medal [medal]="m.medal" [state]="m.won ? 'onTrack' : 'atRisk'" [compact]="true" />
+        }
+      </div>
+    </div>
+  }
 </header>

@@ -1,0 +1,34 @@
+@if (step(); as s) {
+  <div class="pointer-events-none fixed inset-0 z-40 bg-ink/35" aria-hidden="true"></div>
+  <div
+    class="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-2xl rounded-[18px] border-2 border-amber bg-card p-4 shadow-[0_12px_32px_rgba(15,37,48,0.3)]"
+    role="region"
+    aria-label="Guía del primer año"
+  >
+    <div class="mb-2 flex items-center justify-between gap-3">
+      <span class="text-sm font-semibold text-muted">Paso {{ s.number }} de {{ total }}</span>
+      <button
+        type="button"
+        class="focus-ring cursor-pointer px-1 text-sm font-semibold text-muted underline"
+        (click)="store.skipGuide()"
+      >
+        Saltear guía
+      </button>
+    </div>
+    <app-hidro-bubble>{{ s.text }}</app-hidro-bubble>
+    <div class="mt-3 flex justify-end">
+      @if (s.waiting) {
+        <span class="text-sm font-semibold text-amber-ink">{{ s.waiting }}</span>
+      } @else {
+        <button
+          #gotIt
+          type="button"
+          class="focus-ring min-h-11 cursor-pointer rounded-xl border-none bg-water px-6 font-semibold text-white hover:bg-[#0a6ba3]"
+          (click)="store.nextGuideStep()"
+        >
+          Entendido
+        </button>
+      }
+    </div>
+  </div>
+}

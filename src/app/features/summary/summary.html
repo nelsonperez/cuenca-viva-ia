@@ -1,5 +1,25 @@
 @if (games(); as g) {
   <main class="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 pt-4 pb-2 min-[901px]:px-8">
+    @if (result(); as r) {
+      <section class="card gap-4" aria-labelledby="medals-title">
+        <h2 id="medals-title" class="text-[28px] text-water-dark">{{ r.title }}</h2>
+        <ul class="m-0 flex list-none flex-wrap gap-x-8 gap-y-3 p-0">
+          @for (m of r.medals; track m.medal) {
+            <li><app-medal [medal]="m.medal" [state]="m.won ? 'won' : 'missing'" /></li>
+          }
+        </ul>
+        <app-hidro-bubble>
+          @if (r.tips.length === 0) {
+            ¡Excelente! Cuidaste el acuífero, nadie se quedó sin agua y la cuenca estuvo en calma.
+          } @else {
+            @for (tip of r.tips; track tip) {
+              <span class="block">{{ tip }}</span>
+            }
+          }
+        </app-hidro-bubble>
+      </section>
+    }
+
     <div class="card">
       <h2>Partida terminada</h2>
       <p class="m-0 max-w-[70ch] text-lg">
@@ -71,9 +91,16 @@
         </table>
       </div>
 
-      <button type="button" class="play-button mt-2 mb-3 min-h-16 self-start text-2xl" (click)="restart()">
-        Jugar de nuevo
-      </button>
+      <div class="mt-2 mb-3 flex flex-wrap items-center gap-3">
+        <button type="button" class="play-button min-h-16 text-2xl" (click)="restart()">Jugar de nuevo</button>
+        <button
+          type="button"
+          class="focus-ring min-h-14 cursor-pointer rounded-[18px] border-2 border-water bg-card px-6 font-display text-xl font-bold text-water hover:bg-water-soft"
+          (click)="store.backToStart()"
+        >
+          Volver al inicio
+        </button>
+      </div>
       <p class="text-[13px] text-muted">
         Las dos partidas empiezan con el mismo acuífero y atraviesan los mismos años.
       </p>

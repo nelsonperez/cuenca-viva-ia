@@ -1,0 +1,68 @@
+<main class="mx-auto flex max-w-3xl flex-col gap-5 px-4 pt-6 pb-2 min-[901px]:px-8">
+  <section
+    class="card gap-5"
+    aria-roledescription="carrusel"
+    aria-label="Cómo se juega"
+    (keydown.arrowright)="go(index() + 1)"
+    (keydown.arrowleft)="go(index() - 1)"
+  >
+    <div class="card-head">
+      <span class="text-sm font-semibold tracking-[0.06em] text-muted uppercase">Cómo se juega</span>
+      <button type="button" class="focus-ring cursor-pointer rounded-lg px-2 py-1 text-sm font-semibold text-water underline" (click)="store.backToStart()">
+        Volver
+      </button>
+    </div>
+
+    <div class="flex flex-col items-center gap-4 text-center" data-card>
+      <div class="flex gap-3 text-water" aria-hidden="true">
+        @for (icon of card().icons; track icon) {
+          <span class="flex size-16 items-center justify-center rounded-2xl bg-water-soft">
+            <app-icon [name]="icon" [size]="34" />
+          </span>
+        }
+      </div>
+      <h2 class="text-[28px] text-water-dark">{{ card().title }}</h2>
+      <div class="w-full text-left">
+        <app-hidro-bubble>{{ card().text }}</app-hidro-bubble>
+      </div>
+    </div>
+
+    <div class="flex justify-center gap-2">
+      @for (c of cards; track c.title; let i = $index) {
+        <button
+          type="button"
+          class="focus-ring size-3.5 cursor-pointer rounded-full border-none"
+          [class]="i === index() ? 'bg-water' : 'bg-line'"
+          [attr.aria-label]="'Tarjeta ' + (i + 1) + ' de ' + cards.length"
+          [attr.aria-current]="i === index() ? 'step' : null"
+          (click)="go(i)"
+        ></button>
+      }
+    </div>
+
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <button
+        type="button"
+        class="focus-ring min-h-12 cursor-pointer rounded-xl border-2 border-line bg-card px-5 font-semibold disabled:cursor-not-allowed disabled:opacity-40"
+        [disabled]="index() === 0"
+        (click)="go(index() - 1)"
+      >
+        Anterior
+      </button>
+      <button type="button" class="focus-ring cursor-pointer px-2 text-sm font-semibold text-muted underline" (click)="store.start()">
+        Saltear
+      </button>
+      @if (isLast()) {
+        <button type="button" class="play-button min-h-12 px-6 text-xl" (click)="store.start()">¡A jugar!</button>
+      } @else {
+        <button
+          type="button"
+          class="focus-ring min-h-12 cursor-pointer rounded-xl border-none bg-water px-6 font-semibold text-white hover:bg-[#0a6ba3]"
+          (click)="go(index() + 1)"
+        >
+          Siguiente
+        </button>
+      }
+    </div>
+  </section>
+</main>
