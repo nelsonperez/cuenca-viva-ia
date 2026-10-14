@@ -10,8 +10,8 @@ Este proyecto se trabaja con Spec-Driven Development. Antes de proponer o escrib
 
 ## Estado actual
 
-- **Plan en curso:** [000 — Migración de React a Angular](.spec-kit/plans/000-migracion-react-angular.md). Fases 0 a 3 terminadas: el toolchain ya es Angular 21 + Jest + Tailwind y React fue eliminado. La app muestra un aviso provisorio hasta que la fase 5 vuelva a armar el tablero. Para consultar la UI React, usá `git show react-final:src/ui/Board.tsx`.
-- **Plan siguiente:** [001 — Bienvenida, misión y primer año guiado](.spec-kit/plans/001-bienvenida-y-mision.md). Empieza cuando terminen las fases 4 y 5 del plan 000. No lo implementes en React.
+- **Plan 000 (migración a Angular):** terminado. La app es Angular 21 + Signals + Tailwind, con Jest. La versión React queda en la etiqueta `react-final`.
+- **Plan siguiente:** [001 — Bienvenida, misión y primer año guiado](.spec-kit/plans/001-bienvenida-y-mision.md). Ya se puede empezar.
 - **Entorno:** Node 20.20 → Angular 21.x y TypeScript ~5.9 (ADR 001).
 
 ## Mapa rápido
@@ -19,4 +19,7 @@ Este proyecto se trabaja con Spec-Driven Development. Antes de proponer o escrib
 - `src/engine/`: motor de simulación, funciones puras. No se toca durante la migración.
 - `src/tutor/`: tutor por reglas, funciones puras. No se toca durante la migración.
 - `src/game/`: reducer de la partida, puro. Lo va a envolver `GameStore` (ADR 005).
-- `src/app/`: aplicación Angular. Los servicios van en `core/` (fase 4) y los componentes en `features/` y `shared/` (fase 5).
+- `src/app/core/`: `GameStore` y `TutorService` (Signals).
+- `src/app/features/`: tablero (`board/`) y resumen (`summary/`).
+- `src/app/shared/`: ícono y pipe `fmt`.
+- `src/app/testing/render.ts`: helper de pruebas que monta un componente con el store real.

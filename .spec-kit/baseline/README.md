@@ -38,3 +38,18 @@ Partidas usadas, para repetirlas en Angular:
 2. **Partida 2:** "Jugar de nuevo"; en el año 1 comprar "Reparar fugas" y bajar agricultura a 80 %; cinco veces "Simular año". Acuífero final: 68,2 UE.
 
 En el año 1, "Riego por goteo" (4 créditos) y "Recirculación minera" (3) aparecen bloqueadas porque hay 2 créditos (criterio #4).
+
+## Comparación con la versión Angular (plan 000, fase 6)
+
+Mismas partidas y mismos tamaños de ventana, sobre `ng serve` en `feat/angular`. Capturas en [angular/](angular/).
+
+| | React (`react-final`) | Angular |
+|---|---|---|
+| Acuífero final, partida 1 | 20,5 UE | 20,5 UE |
+| Acuífero final, partida 2 | 68,2 UE | 68,2 UE |
+| Scroll horizontal a 375 px | No | No |
+| Errores en la consola | — | Ninguno |
+| Bundle inicial | 256 kB (79 kB gzip) | 177 kB (51 kB transferidos) |
+| Pruebas | 37 (Vitest) | 95 (Jest) |
+
+Diferencias visuales: algunos bloques miden 2–3 px más de alto por el `line-height` base de Tailwind. Colores, tipografías, textos y distribución son los mismos.

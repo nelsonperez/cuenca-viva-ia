@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: En curso (fases 0 a 4 terminadas) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: Terminado (falta mergear el PR) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
@@ -124,15 +124,21 @@ Reglas de esta fase:
 - Los componentes leen `GameStore`/`TutorService` con `inject()` y llaman a `store.dispatch(...)`. Ninguno recibe `dispatch` como input.
 - Los textos y la clase de cada banda de estrés salen de `labels.ts` y de un mapeo en la plantilla. No se escriben cuentas.
 
-**Criterio de salida:** partida completa de 5 años jugable y paridad visual con las capturas de la fase 0.
+Notas de la implementación:
+- Lo compartido por varios componentes vive en `src/styles.css` como utilidades de Tailwind (`card`, `card-head`, `bar-track`, `bar-fill`, `focus-ring`, `tone-agr|mun|min`, `play-button`) y tokens de bandas de estrés. Solo `allocation.css` (pseudo-elementos del slider) y `summary.css` (tablas) tienen CSS de componente.
+- Textos y clases del tablero en `features/board/board-ui.ts`. Los totales (pedido, entregado, recarga, cambio del acuífero) salen de `facts()` del tutor vía `GameStore.facts`, no de cuentas en los componentes.
+- `src/app/testing/render.ts` monta cada componente con el store real. Queda fuera del build de la app.
+- Una prueba de `appConfig` verifica que la app corre sin zone.js (Art. 5.2).
+
+**Criterio de salida:** partida completa de 5 años jugable y paridad visual con las capturas de la fase 0. **Cumplido:** 95 pruebas en verde; componentes con 100 % de líneas; mismas cifras y aspecto que la línea de base ([comparación](../baseline/README.md#comparación-con-la-versión-angular-plan-000-fase-6)).
 
 ### Fase 6 — Verificación de paridad y cierre
 
-- [ ] 6.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto.
-- [ ] 6.2 Prueba manual en el navegador: tablero#1 a #8 (incluido el ancho de 375 px), comparada con las capturas.
-- [ ] 6.3 Prueba solo con teclado de una partida completa (tablero#9). Si pasa, el criterio pasa de "sin prueba completa" a "Verificado".
-- [ ] 6.4 Buscar restos de React en el repo: `grep -rE "react|jsx|tsx|useState|useReducer" src package.json` no devuelve nada.
-- [ ] 6.5 Actualizar `README.md` (stack, comandos, estructura) y la línea "Código:" de cada spec.
+- [x] 6.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto: 95 pruebas, typecheck y lint sin errores, bundle inicial de 177 kB.
+- [x] 6.2 Prueba en el navegador (Playwright): tablero#1 a #8, incluido el ancho de 375 px, comparada con las capturas. Las dos partidas de la línea de base terminan con 20,5 y 68,2 UE.
+- [x] 6.3 Prueba solo con teclado de una partida completa (tablero#9): pasa. Queda una mejora posible: al terminar la partida o al reiniciar, el foco vuelve al documento (igual que en React); conviene llevarlo al título del resumen o al primer control.
+- [x] 6.4 Buscar restos de React en el repo: `grep -rE "react|jsx|tsx|useState|useReducer" src package.json` solo devuelve el detector de `domain-boundaries.spec.ts` y un comentario que nombra la etiqueta `react-final`. `npm ls react` está vacío; `react-is` en el lockfile es una dependencia interna de Jest.
+- [x] 6.5 Actualizar `README.md` (stack, comandos, estructura) y la línea "Código:" de cada spec.
 - [ ] 6.6 PR de `feat/angular` → `main` con la tabla de criterios antes y después.
 
 ## Riesgos y mitigaciones

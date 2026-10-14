@@ -14,7 +14,7 @@ Al terminar puede jugar de nuevo y comparar las dos partidas.
   agua, verdes para el agro, grises para la minería).
 - Las bases piden que pueda usarse con el equipamiento de las escuelas: página liviana, sin
   servidor para jugar, usable en pantallas chicas.
-- Código: `src/app/` (en migración a Angular; la versión React está en la etiqueta `react-final`), `src/game/`.
+- Código: `src/app/` (Angular), `src/game/`. Pruebas: `*.spec.ts` junto a cada componente. La versión React está en la etiqueta `react-final`.
 
 ## Requerimientos
 
@@ -62,7 +62,7 @@ Aprobada el 2026-10-14; se aplica cuando se implemente [bienvenida-y-mision.md](
 
 | # | Criterio | Estado |
 |---|---|---|
-| 1–5 | Partida jugable de punta a punta | Verificado a mano en el navegador |
-| 6–7 | Resumen y comparación | Verificado a mano en el navegador |
-| 8 | Pantalla angosta | Verificado a mano en el navegador |
-| 9 | Teclado | Controles nativos; sin prueba completa |
+| 1–5 | Partida jugable de punta a punta | Cumplido (prueba) y verificado en el navegador |
+| 6–7 | Resumen y comparación | Cumplido (prueba) y verificado en el navegador: mismas cifras que la línea de base (20,5 y 68,2 UE) |
+| 8 | Pantalla angosta | Verificado en el navegador a 375 px, sin scroll horizontal |
+| 9 | Teclado | Verificado en el navegador: partida completa solo con teclado (Tab, flechas, Espacio, Enter) |

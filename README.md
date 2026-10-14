@@ -29,8 +29,11 @@ En curso: migración del frontend de React a Angular ([plan 000](.spec-kit/plans
 - `src/tutor/`: tutor por reglas. Explica cada año y avisa la consecuencia de la decisión en borrador.
   - `facts(resultado)` es la lista de datos que el tutor puede mencionar.
   - `ungroundedNumbers(texto, datos)` detecta números que no salen del motor.
-- `src/game/`: estado de la partida (reducer), vista previa y partidas terminadas.
-- `src/app/`: aplicación Angular (componentes standalone, Signals, Tailwind). El tablero se está migrando desde React (plan 000); la última versión React está en la etiqueta `react-final`.
+- `src/game/`: estado de la partida (reducer puro), vista previa y partidas terminadas.
+- `src/app/`: aplicación Angular 21 (componentes standalone, Signals, Tailwind).
+  - `core/`: `GameStore` guarda la partida en Signals y le aplica el reducer; `TutorService` expone el tutor.
+  - `features/`: tablero y resumen de partida.
+  - La versión anterior en React está en la etiqueta `react-final`.
 
 ## Comandos
 
