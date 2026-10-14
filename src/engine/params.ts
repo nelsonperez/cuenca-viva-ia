@@ -1,4 +1,4 @@
-import type { Params, Scenario } from './types'
+import type { Goals, Params, Scenario } from './types'
 
 // Provisional values from the model draft v0.2: chosen so a game shows visible
 // differences between strategies, pending scientific review.
@@ -31,3 +31,11 @@ export const DEFAULT_SCENARIO: Scenario = {
 
 /** Upper bounds (exclusive) of each stress band; from the last one up is critical. */
 export const STRESS_BANDS = { low: 0.8, moderate: 1.0, high: 1.2 } as const
+
+// Provisional, like the rest of the model. Calibrated against the reference
+// strategies: only prudent deliveries plus technology win all three.
+export const GOALS: Goals = {
+  aquiferSafe: 0.9,
+  noOneWithout: 0.8,
+  calmBasin: 1.2,
+}

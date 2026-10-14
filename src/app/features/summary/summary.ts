@@ -4,6 +4,9 @@ import type { GameSummary } from '../../../engine/types'
 import { BAND_NAME, TECHNOLOGY_NAME, YEAR_NAME, fmt } from '../../../tutor/labels'
 import { GameStore } from '../../core/game.store'
 import { FmtPipe } from '../../shared/fmt.pipe'
+import { HidroBubble } from '../../shared/hidro-bubble'
+import { Medal } from '../../shared/medal'
+import { MEDAL_UI } from '../../shared/medal-ui'
 import { capitalize } from '../../shared/text'
 import { BAND_TEXT } from '../board/board-ui'
 
@@ -30,7 +33,7 @@ const ROWS: { label: string; value: (summary: GameSummary) => string }[] = [
 
 @Component({
   selector: 'app-summary',
-  imports: [FmtPipe],
+  imports: [FmtPipe, HidroBubble, Medal],
   templateUrl: './summary.html',
   styleUrl: './summary.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,6 +51,20 @@ export class Summary {
     const current = finished.at(-1)
     if (!current) return null
     return { current, previous: finished.length > 1 ? finished[0] : null }
+  })
+
+  protected readonly medalUi = MEDAL_UI
+
+  /** Medals of the game just finished, with what Hidro says about the missing ones. */
+  protected readonly result = computed(() => {
+    const medals = this.store.medals()
+    if (!medals) return null
+    const won = medals.filter((m) => m.won).length
+    return {
+      medals,
+      title: won === medals.length ? `¡Misión cumplida! ${won} de ${medals.length} medallas` : `Conseguiste ${won} de ${medals.length} medallas`,
+      tips: medals.filter((m) => !m.won).map((m) => MEDAL_UI[m.medal].tip),
+    }
   })
 
   protected restart() {

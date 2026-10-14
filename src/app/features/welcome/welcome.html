@@ -1,0 +1,62 @@
+<main class="mx-auto flex max-w-5xl flex-col gap-5 px-4 pt-6 pb-2 min-[901px]:px-8">
+  <div class="card items-center gap-6 py-8 text-center">
+    <div class="flex w-full max-w-xl items-center justify-between gap-2 text-water-dark" aria-hidden="true">
+      <span class="flex size-16 items-center justify-center rounded-2xl bg-[#eef2f4] text-[#3e4f58]">
+        <app-icon name="mountain" [size]="38" />
+      </span>
+      <span class="river h-1.5 flex-1 rounded-full"></span>
+      <span class="flex size-16 items-center justify-center rounded-2xl bg-water-soft">
+        <app-icon name="river" [size]="38" />
+      </span>
+      <span class="river h-1.5 flex-1 rounded-full"></span>
+      <span class="flex flex-col gap-1.5">
+        <span class="tone-agr flex size-9 items-center justify-center rounded-lg bg-(--soft) text-(--tone)"><app-icon name="agr" /></span>
+        <span class="tone-mun flex size-9 items-center justify-center rounded-lg bg-(--soft) text-(--tone)"><app-icon name="mun" /></span>
+        <span class="tone-min flex size-9 items-center justify-center rounded-lg bg-(--soft) text-(--tone)"><app-icon name="min" /></span>
+      </span>
+    </div>
+
+    <div class="flex max-w-2xl flex-col gap-2">
+      <h2 class="text-[30px] leading-tight text-water-dark">
+        Sos quien reparte el agua de la cuenca durante {{ store.totalYears }} años
+      </h2>
+      <p class="m-0 text-lg text-muted">
+        La agricultura, la ciudad y la minería necesitan el agua del río San Juan. Cuando el río no
+        alcanza, se bombea del acuífero que está bajo el valle. ¿Podés cuidarlo?
+      </p>
+    </div>
+
+    <div class="w-full max-w-2xl text-left">
+      <app-hidro-bubble>
+        ¡Hola! Soy Hidro. Te voy a ayudar a cuidar el agua de la cuenca: cada año te cuento qué pasó
+        y te aviso antes de que tomes una decisión riesgosa.
+      </app-hidro-bubble>
+    </div>
+  </div>
+
+  <section class="card" aria-labelledby="mission-title">
+    <h2 id="mission-title">Tu misión</h2>
+    <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-3">
+      @for (medal of medals; track medal) {
+        <li class="flex flex-col gap-2 rounded-[14px] bg-ground p-4">
+          <app-medal [medal]="medal" state="won" />
+          <span class="text-[15px]">{{ ui[medal].goal(goals) }}</span>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <div class="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:justify-center">
+    <button type="button" class="play-button min-h-20 sm:min-w-[300px]" (click)="store.start()">
+      <app-icon name="play" [size]="26" />
+      <span>Nueva partida</span>
+    </button>
+    <button
+      type="button"
+      class="focus-ring min-h-16 cursor-pointer rounded-[18px] border-2 border-water bg-card px-8 font-display text-2xl font-bold text-water hover:bg-water-soft"
+      (click)="store.showHowTo()"
+    >
+      Cómo se juega
+    </button>
+  </div>
+</main>

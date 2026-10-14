@@ -118,3 +118,13 @@ export interface GameSummary {
   meanStress: number
   owned: Owned
 }
+
+/** Thresholds of the three medals (spec bienvenida-y-mision, req. 11–13). */
+export interface Goals {
+  /** Final aquifer, as a share of the initial one, to win "Acuífero a salvo". */
+  aquiferSafe: number
+  /** Lowest coverage of any sector in any year to win "Nadie sin agua". */
+  noOneWithout: number
+  /** Mean stress must stay below this to win "Cuenca en calma". */
+  calmBasin: number
+}

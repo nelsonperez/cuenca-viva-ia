@@ -42,6 +42,18 @@ const ICONS = {
     'M9.5 17h5',
   ],
   play: ['M7 4.5v15l13-7.5z'],
+  shield: ['M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6z', 'M9 12l2 2 4-4'],
+  people: [
+    'M6 8a3 3 0 1 0 6 0a3 3 0 1 0-6 0',
+    'M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6',
+    'M15 5.3a3 3 0 0 1 0 5.4',
+    'M17 14.3c2.4.8 4 3 4 5.7',
+  ],
+  calm: [
+    'M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0',
+    'M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8',
+    'M9 9.5h.01M15 9.5h.01',
+  ],
 } satisfies Record<string, string[]>
 
 export type IconName = keyof typeof ICONS

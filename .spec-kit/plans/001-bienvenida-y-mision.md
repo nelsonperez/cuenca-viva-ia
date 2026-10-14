@@ -1,6 +1,6 @@
 # Plan 001 — Bienvenida, misión y primer año guiado
 
-**Estado**: Propuesto (empieza cuando terminen las fases 4 y 5 del plan 000) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
+**Estado**: Terminado ([PR #2](https://github.com/nelsonperez/cuenca-viva-ia/pull/2)) · **Rama**: `feat/bienvenida` · **Specs afectadas**: `bienvenida-y-mision.md` (nueva), `tablero.md` (criterio 1) · **ADRs**: 005
 
 ## Objetivo
 
@@ -42,21 +42,26 @@ Al empezar este plan ya existen, por el plan 000:
 
 ### Fase 1 — Medallas en el dominio (TDD)
 
-- [ ] 1.1 Pruebas en rojo para `medals(summary, params)` en `src/game/medals.spec.ts`: casos en el límite de cada umbral (bienvenida#11–13).
-- [ ] 1.2 `GOALS` en `src/engine/params.ts`, con los valores iniciales de la spec, y `medals()` en `src/game/medals.ts`.
-- [ ] 1.3 Prueba de calibración con las tres estrategias de referencia de `engine.spec.ts`: "todo sin tecnología" gana como mucho 1 medalla y "prudente" al menos 2. Ajustar los umbrales hasta que pase y anotar los valores finales en la spec.
-- [ ] 1.4 Prueba de propiedad: en 200 partidas aleatorias, cada medalla coincide con su condición sobre `summary`.
+- [x] 1.1 Pruebas en rojo para `medals(summary, params)` en `src/game/medals.spec.ts`: casos en el límite de cada umbral (bienvenida#11–13).
+- [x] 1.2 `GOALS` en `src/engine/params.ts`, con los valores iniciales de la spec, y `medals()` en `src/game/medals.ts`.
+- [x] 1.3 Prueba de calibración con las tres estrategias de referencia de `engine.spec.ts`: "todo sin tecnología" gana como mucho 1 medalla y "prudente" al menos 2. Ajustar los umbrales hasta que pase y anotar los valores finales en la spec.
+- [x] 1.4 Prueba de propiedad: en 200 partidas aleatorias, cada medalla coincide con su condición sobre `summary`.
 
-**Criterio de salida:** bienvenida#11–13 "Cumplido (prueba)" y cobertura del dominio ≥ 95 %.
+**Criterio de salida:** bienvenida#11–13 "Cumplido (prueba)" y cobertura del dominio ≥ 95 %. **Cumplido:** los valores iniciales ya cumplían la calibración y quedaron como definitivos. Se agregó `medalsSoFar()` para la franja de misión (bienvenida#14) y `medals.ts` tiene 100 % de cobertura.
 
 ### Fase 2 — Estado de pantallas y guía en `GameStore` (TDD)
 
-- [ ] 2.1 `screen = signal<'welcome' | 'howTo' | 'playing'>('welcome')`, con las intenciones `start()`, `showHowTo()` y `backToStart()`.
-- [ ] 2.2 `guideStep = signal<number | null>`: arranca en el paso 0 con el primer `start()`; avanza con `next()`, con `setCoverage` en el paso 2 y con `simulate` en el paso 5; se cierra con `skipGuide()`; no se activa después de `restart`.
-- [ ] 2.3 `medals = computed(...)` sobre la última partida terminada, y `missionStatus = computed(...)` sobre la vista previa para la franja del tablero (bienvenida#14).
-- [ ] 2.4 Pruebas del recorrido completo: bienvenida → partida guiada → resumen → jugar de nuevo (sin guía) → volver al inicio (las partidas se conservan).
+- [x] 2.1 `screen = signal<'welcome' | 'howTo' | 'playing'>('welcome')`, con las intenciones `start()`, `showHowTo()` y `backToStart()`.
+- [x] 2.2 `guideStep = signal<number | null>`: arranca en el paso 0 con el primer `start()`; avanza con `next()`, con `setCoverage` en el paso 2 y con `simulate` en el paso 5; se cierra con `skipGuide()`; no se activa después de `restart`.
+- [x] 2.3 `medals = computed(...)` sobre la última partida terminada, y `missionStatus = computed(...)` sobre la vista previa para la franja del tablero (bienvenida#14).
+- [x] 2.4 Pruebas del recorrido completo: bienvenida → partida guiada → resumen → jugar de nuevo (sin guía) → volver al inicio (las partidas se conservan).
 
-**Criterio de salida:** bienvenida#2, #6, #7, #9 y #15 cubiertos en el store, con cobertura ≥ 90 %.
+**Criterio de salida:** bienvenida#2, #6, #7, #9 y #15 cubiertos en el store, con cobertura ≥ 90 %. **Cumplido:**
+- Los pasos de la guía (zona y acción que los hace avanzar) viven en `core/guide.ts`; los textos de Hidro quedan para la UI.
+- Simular antes del último paso cierra la guía, porque el jugador ya está jugando por su cuenta.
+- "Nueva partida" con una partida terminada la reinicia y conserva las anteriores.
+- `mission` usa `medalsSoFar` sobre la vista previa.
+- 10 pruebas nuevas en `game.store.flow.spec.ts`.
 
 ### Fase 3 — Pantallas (TDD, un componente por vez)
 
@@ -76,15 +81,20 @@ Reglas de esta fase:
 - La guía marca la zona señalada con una clase y un atributo `data-guide`, sin mover el tablero. El oscurecimiento es puramente visual: el tablero sigue respondiendo.
 - El panel "Tutor" del tablero pasa a llamarse "Hidro".
 
-**Criterio de salida:** bienvenida#1–16 con pruebas que los citan.
+**Criterio de salida:** bienvenida#1–16 con pruebas que los citan. **Cumplido:**
+- 143 pruebas en total.
+- Las tarjetas guardan el índice en un `signal` local, porque es estado de la vista y no de la aplicación.
+- La guía sincroniza el resaltado, el scroll y el foco con un `effect` (Art. 5.3: sincronizar con el exterior).
+- Se agregaron los íconos `shield`, `people` y `calm` para las medallas.
+- `tsconfig.json` incluye ahora `DOM.Iterable`.
 
 ### Fase 4 — Verificación y cierre
 
-- [ ] 4.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto.
-- [ ] 4.2 Playwright: abrir la página, recorrer "Cómo se juega" solo con el teclado, comenzar, seguir la guía y jugar las dos partidas de la línea de base. Anotar las medallas que gana cada una.
-- [ ] 4.3 Capturas a 1280 px y a 375 px de la bienvenida, una tarjeta, un paso de la guía y el resumen con medallas.
-- [ ] 4.4 Aplicar la enmienda de tablero#1 en `tablero.md` y actualizar las tablas de criterios de las dos specs.
-- [ ] 4.5 Actualizar el README y el índice de `.spec-kit/`.
+- [x] 4.1 `npm test` con cobertura dentro de los umbrales, `npm run lint` y `npm run build` dentro del presupuesto.
+- [x] 4.2 Playwright: abrir la página, recorrer "Cómo se juega" solo con el teclado, comenzar, seguir la guía y jugar las dos partidas de la línea de base. Anotar las medallas que gana cada una. Ver [baseline/bienvenida](../baseline/bienvenida/README.md).
+- [x] 4.3 Capturas a 1280 px y a 375 px de la bienvenida, una tarjeta, un paso de la guía y el resumen con medallas.
+- [x] 4.4 Aplicar la enmienda de tablero#1 en `tablero.md` y actualizar las tablas de criterios de las dos specs.
+- [x] 4.5 Actualizar el README y el índice de `.spec-kit/`.
 
 ## Riesgos y mitigaciones
 

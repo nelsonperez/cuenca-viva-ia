@@ -6,7 +6,7 @@ Propuesta para el Desafío 2 de la hackatón Hackeando la Minería (Ciclo Pilare
 
 ## Estado
 
-Primera versión jugable: motor de simulación, tutor por reglas (sin IA) y tablero con comparación de dos partidas. Falta el tutor con IA y su evaluación automática.
+Versión jugable: bienvenida con misión, "Cómo se juega", primer año guiado por Hidro (el tutor por reglas, sin IA), tablero, medallas y comparación de dos partidas. Falta el tutor con IA y su evaluación automática.
 
 El proyecto se trabaja con specs: cada pieza tiene su documento en `specs/` con requerimientos y criterios de aceptación. La constitución, los planes y las decisiones de arquitectura están en `.spec-kit/` (ver `.spec-kit/README.md`).
 
@@ -29,10 +29,10 @@ En curso: migración del frontend de React a Angular ([plan 000](.spec-kit/plans
 - `src/tutor/`: tutor por reglas. Explica cada año y avisa la consecuencia de la decisión en borrador.
   - `facts(resultado)` es la lista de datos que el tutor puede mencionar.
   - `ungroundedNumbers(texto, datos)` detecta números que no salen del motor.
-- `src/game/`: estado de la partida (reducer puro), vista previa y partidas terminadas.
+- `src/game/`: estado de la partida (reducer puro), vista previa, partidas terminadas y medallas (`medals.ts`).
 - `src/app/`: aplicación Angular 21 (componentes standalone, Signals, Tailwind).
   - `core/`: `GameStore` guarda la partida en Signals y le aplica el reducer; `TutorService` expone el tutor.
-  - `features/`: tablero y resumen de partida.
+  - `features/`: bienvenida, "Cómo se juega", guía del primer año, tablero y resumen con medallas.
   - La versión anterior en React está en la etiqueta `react-final`.
 
 ## Comandos
@@ -55,3 +55,5 @@ npm run build     # build de producción en dist/
 - El riego por goteo también reduce lo que el riego devuelve al acuífero.
 - El tutor por reglas no escribe ningún número que el motor no haya producido, con 200 partidas aleatorias.
 - El estado de la partida: vista previa, compras, avance de año y reinicio.
+- Las medallas: cada umbral en su límite, la calibración con las estrategias de referencia y 200 partidas aleatorias.
+- Las pantallas: bienvenida, tarjetas, guía (avance, salteo, foco) y resumen, citando cada criterio de las specs.

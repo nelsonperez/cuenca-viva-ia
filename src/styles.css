@@ -145,3 +145,17 @@
       0 6px 12px rgba(8, 64, 95, 0.25);
   }
 }
+
+/* The zone the first-year guide points at stays above the dimmed board. */
+.guide-target {
+  position: relative;
+  z-index: 50;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 8px var(--color-card),
+    0 0 0 12px var(--color-amber);
+}
+
+.guide-target:not(button) {
+  background-color: var(--color-card);
+}

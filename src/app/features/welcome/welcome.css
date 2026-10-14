@@ -1,0 +1,22 @@
+/* Water running west to east along the illustration. */
+.river {
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-water-bright) 0 14px,
+    var(--color-water-soft) 14px 22px
+  );
+  background-size: 22px 100%;
+  animation: flow 1.2s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    background-position: 22px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .river {
+    animation: none;
+  }
+}

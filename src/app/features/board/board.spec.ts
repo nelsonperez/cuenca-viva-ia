@@ -8,10 +8,16 @@ const playButton = (element: HTMLElement) =>
 describe('Board', () => {
   it('[tablero#1] puts every part of the board on one screen', async () => {
     const { text } = await render(Board)
-    for (const title of ['Mapa conceptual de la cuenca', 'Acuífero subterráneo', 'Reparto del agua', 'Tecnologías de ahorro', 'Tutor']) {
+    for (const title of ['Mapa conceptual de la cuenca', 'Acuífero subterráneo', 'Reparto del agua', 'Tecnologías de ahorro', 'Hidro']) {
       expect(text()).toContain(title)
     }
     expect(text()).toContain('Sigue: año de sequía')
+  })
+
+  it('[bienvenida#5] marks the zones the guide points at', async () => {
+    const { element } = await render(Board)
+    const zones = Array.from(element.querySelectorAll('[data-guide]')).map((z) => z.getAttribute('data-guide'))
+    expect(zones.sort()).toEqual(['allocation', 'play', 'river', 'stress', 'stress', 'technologies'])
   })
 
   it('[tablero#5] the play button simulates the year', async () => {

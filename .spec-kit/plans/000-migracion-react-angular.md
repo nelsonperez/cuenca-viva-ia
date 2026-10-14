@@ -1,6 +1,6 @@
 # Plan 000 — Migración de React a Angular
 
-**Estado**: Terminado (falta mergear el PR) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
+**Estado**: Terminado (PR #1 mergeado) · **Rama**: `feat/angular` · **Specs afectadas**: `motor-simulacion.md`, `tutor-reglas.md`, `tablero.md` · **ADRs**: 001–005
 
 ## Objetivo
 
