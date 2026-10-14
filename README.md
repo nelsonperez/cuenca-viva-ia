@@ -6,7 +6,9 @@ Propuesta para el Desafío 2 de la hackatón Hackeando la Minería (Ciclo Pilare
 
 ## Estado
 
-En construcción. Hoy existe el motor de simulación con sus pruebas; faltan la interfaz y el tutor.
+Primera versión jugable: motor de simulación, tutor por reglas (sin IA) y tablero con comparación de dos partidas. Falta el tutor con IA y su evaluación automática.
+
+El proyecto se trabaja con specs: cada pieza tiene su documento en `specs/` con requerimientos y criterios de aceptación.
 
 ## Límites del modelo
 
@@ -22,6 +24,11 @@ En construcción. Hoy existe el motor de simulación con sus pruebas; faltan la 
   - Tres tecnologías de ahorro (riego por goteo, reparar fugas, recirculación minera) que se compran con créditos y quedan instaladas.
   - Cada año informa el estrés hídrico real y el que habría sin tecnologías.
   - El motor calcula; el tutor solo interpreta ese resultado.
+- `src/tutor/`: tutor por reglas. Explica cada año y avisa la consecuencia de la decisión en borrador.
+  - `facts(resultado)` es la lista de datos que el tutor puede mencionar.
+  - `ungroundedNumbers(texto, datos)` detecta números que no salen del motor.
+- `src/game/`: estado de la partida (reducer), vista previa y partidas terminadas.
+- `src/ui/`: tablero y resumen de partida.
 
 ## Comandos
 
@@ -39,3 +46,5 @@ npm run dev
 - Tres estrategias de referencia dan los resultados documentados en el diseño del modelo.
 - Las tecnologías bajan el estrés hídrico bajo la misma cobertura.
 - El riego por goteo también reduce lo que el riego devuelve al acuífero.
+- El tutor por reglas no escribe ningún número que el motor no haya producido, con 200 partidas aleatorias.
+- El estado de la partida: vista previa, compras, avance de año y reinicio.

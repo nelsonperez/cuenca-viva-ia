@@ -1,122 +1,81 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useReducer } from 'react'
+import { DEFAULT_PARAMS, DEFAULT_SCENARIO } from './engine/params'
+import { newGame, preview, reduce } from './game/game'
+import type { Action, Game } from './game/game'
+import { YEAR_NAME } from './tutor/labels'
+import { Board } from './ui/Board'
+import { Summary } from './ui/Summary'
+import { DropIcon } from './ui/icons'
 
-function App() {
-  const [count, setCount] = useState(0)
+const params = DEFAULT_PARAMS
+const scenario = DEFAULT_SCENARIO
+
+const reducer = (game: Game, action: Action) => reduce(game, action, params, scenario)
+
+const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1)
+
+export default function App() {
+  const [game, dispatch] = useReducer(reducer, params, newGame)
+  const drafted = preview(game, params, scenario)
+  const total = scenario.years.length
+  const current = Math.min(game.basin.year, total - 1)
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app">
+      <header className="top">
+        <div className="top-inner">
+          <div className="brand">
+            <div className="logo">
+              <DropIcon size={24} />
+            </div>
+            <div>
+              <h1>Cuenca Viva IA</h1>
+              <span className="muted small">Cuenca del río San Juan · Valle de Tulum</span>
+            </div>
+          </div>
 
-      <div className="ticks"></div>
+          <div className="turn">
+            <span>
+              {drafted
+                ? `Año ${current + 1} de ${total} · ${capitalize(YEAR_NAME[drafted.yearType])}`
+                : 'Partida terminada'}
+            </span>
+            <div className="steps" aria-hidden="true">
+              {scenario.years.map((_, index) => (
+                <span
+                  key={index}
+                  className={
+                    index < game.basin.year ? 'done' : index === game.basin.year ? 'now' : ''
+                  }
+                />
+              ))}
+            </div>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <span className="disclaimer">Datos simulados · Uso educativo</span>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {drafted ? (
+        <Board
+          game={game}
+          preview={drafted}
+          params={params}
+          scenario={scenario}
+          dispatch={dispatch}
+        />
+      ) : (
+        <Summary
+          finished={game.finished}
+          params={params}
+          onRestart={() => dispatch({ type: 'restart' })}
+        />
+      )}
+
+      <p className="legal">
+        Modelo educativo con cantidades de ejemplo en unidades educativas (UE). No representa
+        mediciones reales ni sirve para decidir sobre el recurso. Pendiente de revisión científica.
+      </p>
+    </div>
   )
 }
-
-export default App

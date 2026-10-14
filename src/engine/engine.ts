@@ -1,5 +1,5 @@
 import { STRESS_BANDS } from './params'
-import { SECTORS, TECHNOLOGIES } from './types'
+import { SECTORS, TECHNOLOGIES, TECHNOLOGY_SECTOR } from './types'
 import type {
   BasinState,
   Decision,
@@ -42,8 +42,9 @@ export function isGameOver(state: BasinState, scenario: Scenario): boolean {
 export function demandWith(owned: Owned, params: Params): PerSector {
   const demand = { ...params.demand }
   for (const technology of TECHNOLOGIES) {
-    const spec = params.technologies[technology]
-    if (owned[technology]) demand[spec.sector] *= 1 - spec.saving
+    if (owned[technology]) {
+      demand[TECHNOLOGY_SECTOR[technology]] *= 1 - params.technologies[technology].saving
+    }
   }
   return demand
 }

@@ -13,9 +13,9 @@ export const DEFAULT_PARAMS: Params = {
   creditsInitial: 2,
   creditsPerYear: 2,
   technologies: {
-    drip: { sector: 'agr', cost: 4, saving: 0.35 },
-    leaks: { sector: 'mun', cost: 2, saving: 0.2 },
-    recirc: { sector: 'min', cost: 3, saving: 0.6 },
+    drip: { cost: 4, saving: 0.35 },
+    leaks: { cost: 2, saving: 0.2 },
+    recirc: { cost: 3, saving: 0.6 },
   },
 }
 

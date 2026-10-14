@@ -6,8 +6,14 @@ export const TECHNOLOGIES = ['drip', 'leaks', 'recirc'] as const
 export type Technology = (typeof TECHNOLOGIES)[number]
 export type Owned = Record<Technology, boolean>
 
+/** Each technology saves water in one sector. */
+export const TECHNOLOGY_SECTOR: Record<Technology, Sector> = {
+  drip: 'agr',
+  leaks: 'mun',
+  recirc: 'min',
+}
+
 export interface TechnologySpec {
-  sector: Sector
   cost: number
   /** Fraction of the sector demand saved once installed. */
   saving: number
