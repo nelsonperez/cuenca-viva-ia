@@ -139,7 +139,7 @@ Notas de la implementación:
 - [x] 6.3 Prueba solo con teclado de una partida completa (tablero#9): pasa. Queda una mejora posible: al terminar la partida o al reiniciar, el foco vuelve al documento (igual que en React); conviene llevarlo al título del resumen o al primer control.
 - [x] 6.4 Buscar restos de React en el repo: `grep -rE "react|jsx|tsx|useState|useReducer" src package.json` solo devuelve el detector de `domain-boundaries.spec.ts` y un comentario que nombra la etiqueta `react-final`. `npm ls react` está vacío; `react-is` en el lockfile es una dependencia interna de Jest.
 - [x] 6.5 Actualizar `README.md` (stack, comandos, estructura) y la línea "Código:" de cada spec.
-- [ ] 6.6 PR de `feat/angular` → `main` con la tabla de criterios antes y después.
+- [x] 6.6 PR de `feat/angular` → `main` con la tabla de criterios antes y después: [#1](https://github.com/nelsonperez/cuenca-viva-ia/pull/1).
 
 ## Riesgos y mitigaciones
 
