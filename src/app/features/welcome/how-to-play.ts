@@ -19,7 +19,7 @@ const CARDS: Card[] = [
   },
   {
     title: 'Repartila',
-    text: 'Mové cada barra para decidir qué parte de lo que necesita recibe la agricultura, la ciudad y la minería.',
+    text: 'Mové cada barra para decidir qué parte de lo que necesita recibe la agricultura, la ciudad y la minería. La barra llena es todo lo que necesita.',
     icons: ['agr', 'mun', 'min'],
   },
   {

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing'
-import type { Type } from '@angular/core'
+import type { Provider, Type } from '@angular/core'
 import { GameStore } from '../core/game.store'
 
 /** Renders a standalone component with the real store and returns helpers for the tests. */
-export async function render<T>(component: Type<T>) {
-  await TestBed.configureTestingModule({ imports: [component] }).compileComponents()
+export async function render<T>(component: Type<T>, providers: Provider[] = []) {
+  await TestBed.configureTestingModule({ imports: [component], providers }).compileComponents()
   const fixture = TestBed.createComponent(component)
   await fixture.whenStable()
   const element = fixture.nativeElement as HTMLElement
